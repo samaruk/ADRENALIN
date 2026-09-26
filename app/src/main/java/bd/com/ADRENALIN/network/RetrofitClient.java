@@ -32,7 +32,8 @@ public class RetrofitClient {
 
     //http://www.docxambd.com/
 //    public static final String BASE_URL = "http://gis.laconicsoft.com/";
-    public static final String BASE_URL = "http://docxambd.com/";
+    //public static final String BASE_URL = "http://docxambd.com/";
+    public static final String BASE_URL = "http://192.168.1.235:7988/";
     public static final String BASE_URL_MOCKY = "http://www.mocky.io/v2/";
 
     public static final String QUESTION_SERIALIZER = "QUESTION_SERIALIZER";
@@ -74,6 +75,20 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit;
+    }
+    /** Gson configured with one of the custom (de)serializers, for local JSON work (exam drafts). */
+    public static Gson getGson(String typeAdapter) {
+        GsonBuilder gsonBuilder = new GsonBuilder().setLenient();
+        if (typeAdapter.equals(QUESTION_SERIALIZER)) {
+            gsonBuilder.registerTypeAdapter(Exam.class, new QuestionSerializer());
+        } else if (typeAdapter.equals(EXAM_DESERIALIZER)) {
+            Type listType = new TypeToken<List<Question>>() {
+            }.getType();
+            gsonBuilder.registerTypeAdapter(listType, new QuestionDeserializer());
+        } else if (typeAdapter.equals(EXAM_DESERIALIZER_FOR_ALL_ANSWERS)) {
+            gsonBuilder.registerTypeAdapter(Exam.class, new ExamDeserializerForAllAnswers());
+        }
+        return gsonBuilder.create();
     }
     private static Retrofit getClientExamQuestion(Context context, String baseUrl, String typeAdapter) {
 

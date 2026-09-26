@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import bd.com.ADRENALIN.pojo.Exam;
+import bd.com.ADRENALIN.pojo.ExamDraft;
 import bd.com.ADRENALIN.pojo.ExamType;
 import bd.com.ADRENALIN.pojo.DeviceModel;
 import bd.com.ADRENALIN.pojo.User;
@@ -111,5 +112,30 @@ public class PrefManager {
 
     public void setNextExamInfo(Exam nextExamInfo) {
         editor.putString(NEXT_EXAM_INFO, gson.toJson(nextExamInfo)).commit();
+    }
+
+    /* ---- Local exam drafts (resume after crash / offline) ---- */
+    private static final String EXAM_DRAFT_PREFIX = "EXAM_DRAFT_";
+
+    public static String examDraftKey(String userId, int examId, boolean reExam) {
+        return EXAM_DRAFT_PREFIX + userId + "_" + examId + (reExam ? "_R" : "");
+    }
+
+    public ExamDraft getExamDraft(String userId, int examId, boolean reExam) {
+        String string = pref.getString(examDraftKey(userId, examId, reExam), null);
+        if (string == null) return null;
+        try {
+            return gson.fromJson(string, ExamDraft.class);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void setExamDraft(String userId, int examId, boolean reExam, ExamDraft draft) {
+        editor.putString(examDraftKey(userId, examId, reExam), gson.toJson(draft)).commit();
+    }
+
+    public void removeExamDraft(String userId, int examId, boolean reExam) {
+        editor.remove(examDraftKey(userId, examId, reExam)).commit();
     }
 }

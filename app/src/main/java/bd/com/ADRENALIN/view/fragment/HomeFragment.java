@@ -183,6 +183,9 @@ public class HomeFragment extends BaseFragment {
         }
 
 
+        if (nextExam.isStarted()) {
+            tvNextExamLabel.setText(getString(R.string.lbl_resume_exam_hint));
+        }
         nesterScrollViewNextExamSection.setVisibility(View.VISIBLE);
     }
 }

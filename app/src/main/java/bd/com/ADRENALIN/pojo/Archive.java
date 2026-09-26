@@ -289,4 +289,19 @@ public class Archive implements Parcelable {
                 ", phone='" + phone + '\'' +
                 '}';
     }
+
+    /* ---- re-exam (2026-09) ---- */
+    @SerializedName("HasAnswer")
+    private int hasAnswer;
+    @SerializedName("ReExamCount")
+    private int reExamCount;
+
+    /** True when the student submitted the main exam. */
+    public boolean hasAnswer() {
+        return hasAnswer == 1;
+    }
+
+    public int getReExamCount() {
+        return reExamCount;
+    }
 }

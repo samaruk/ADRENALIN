@@ -60,7 +60,8 @@ public class ExamAnswerActivity extends BaseActivity {
                 getExamQuestionFromAPI(intent.getIntExtra(AppConstants.ExamConstants.INTENT_EXAM_ID, 0),categoryId);
             }
             else
-                getResultFromAPI(intent.getIntExtra(AppConstants.ExamConstants.INTENT_ANSWER_ID, 0));
+                getResultFromAPI(intent.getIntExtra(AppConstants.ExamConstants.INTENT_ANSWER_ID, 0),
+                        intent.getBooleanExtra(AppConstants.ExamConstants.INTENT_IS_REEXAM, false));
         }
     }
 
@@ -91,12 +92,9 @@ public class ExamAnswerActivity extends BaseActivity {
 
     }
 
-    private void getResultFromAPI(int answerId) {
+    private void getResultFromAPI(int answerId, boolean isReExam) {
         /* Get all Answers for an Exam */
-        RetrofitClient
-                .getApiServiceQuestion(context, RetrofitClient.EXAM_DESERIALIZER_FOR_ALL_ANSWERS)
-                .getAnswersByExamId(answerId)
-                .enqueue(new ApiCallback<Exam>(context, new Callback<Exam>() {
+        answerCall(answerId, isReExam).enqueue(new ApiCallback<Exam>(context, new Callback<Exam>() {
                     @Override
                     public void onResponse(Call<Exam> call, Response<Exam> response) {
                         Exam exam = response.body();
@@ -127,5 +125,11 @@ public class ExamAnswerActivity extends BaseActivity {
         }
     }
 
-
+    /** Main exam answers come from Exam/GetAnswer, re-exam answers from Exam/GetReAnswer. */
+    private Call<Exam> answerCall(int answerId, boolean isReExam) {
+        if (isReExam) {
+            return RetrofitClient.getApiServiceQuestion(context, RetrofitClient.EXAM_DESERIALIZER_FOR_ALL_ANSWERS).getReAnswersById(answerId);
+        }
+        return RetrofitClient.getApiServiceQuestion(context, RetrofitClient.EXAM_DESERIALIZER_FOR_ALL_ANSWERS).getAnswersByExamId(answerId);
+    }
 }

@@ -13,6 +13,10 @@ public class AppConstants {
         public static final String INTENT_ANSWER_ID = "INTENT_EXAM_ID";
         public static final String INTENT_EXAM_CATEGORY = "INTENT_EXAM_ANS_SUMMERY";
         public static final String INTENT_FROM_ARCHIVE = "INTENT_FROM_ARCHIVE";
+        /** Boolean: the exam is a re-exam attempt (not counted in the merit list). */
+        public static final String INTENT_IS_REEXAM = "INTENT_IS_REEXAM";
+        /** Boolean: reopen a running attempt from the saved draft. */
+        public static final String INTENT_RESUME = "INTENT_RESUME";
     }
     public static final class NotificatioEvent {
         public static final String TYPE = "TYPE";

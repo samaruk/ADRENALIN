@@ -84,6 +84,7 @@
 
                     <!--Position-->
                     <LinearLayout
+                        android:id="@+id/llPositionRow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -304,6 +305,36 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:text="Tap to see the Merit List" />
+
+            <!-- One tab per attempt: Exam, Reexam 1, Reexam 2, ... -->
+            <TextView
+                android:id="@+id/tvAttemptsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginBottom="6dp"
+                android:text="@string/lbl_attempts"
+                android:textColor="@color/text_color_secondary"
+                android:textSize="@dimen/text_size_small"
+                android:visibility="gone" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsAttemptTabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:scrollbars="none"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/llAttemptTabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
         </LinearLayout>
 

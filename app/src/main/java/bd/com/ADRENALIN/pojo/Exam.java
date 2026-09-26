@@ -193,4 +193,35 @@ public class Exam {
                 ", questions=" + questions +
                 '}';
     }
+
+    /* ---- resumable sessions / re-exam (2026-09) ---- */
+    @SerializedName("IsStarted")
+    private int isStarted;
+    private boolean reExam;
+    private int draftVersion;
+
+    /** 1 when the server holds a running (resumable) session of this student on the exam. */
+    public boolean isStarted() {
+        return isStarted == 1;
+    }
+
+    public void setStarted(boolean started) {
+        this.isStarted = started ? 1 : 0;
+    }
+
+    public boolean isReExam() {
+        return reExam;
+    }
+
+    public void setReExam(boolean reExam) {
+        this.reExam = reExam;
+    }
+
+    public int getDraftVersion() {
+        return draftVersion;
+    }
+
+    public void setDraftVersion(int draftVersion) {
+        this.draftVersion = draftVersion;
+    }
 }

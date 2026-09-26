@@ -58,6 +58,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
+            android:name="bd.com.ADRENALIN.view.activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
             android:name="bd.com.ADRENALIN.view.activity.BookListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />

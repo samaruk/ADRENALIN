@@ -276,4 +276,12 @@ public class AnswerSummary implements Parcelable {
                 ", minMarks=" + minMarks +
                 '}';
     }
+
+    /* ---- re-exam (2026-09) ---- */
+    @SerializedName("IsReExam")
+    private int isReExam;
+
+    public boolean isReExam() {
+        return isReExam == 1;
+    }
 }

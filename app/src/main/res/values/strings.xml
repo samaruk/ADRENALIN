@@ -76,7 +76,7 @@
     <string name="lbl_syllabus_w_colon">Syllabus:&#160; </string>
     <string name="lbl_content_w_colon">Content:&#160; </string>
     <string name="lbl_routine_section_below">See \'Routine\' section below for whole Routine</string>
-    <string name="lbl_go_back_warning">Going back will automatically submit the running Exam and you can not perform this Exam again.</string>
+    <string name="lbl_go_back_warning">Your answers are saved. You can submit now, or leave and continue later until the exam time runs out.</string>
     <string name="lbl_time_remaining">Time Remaining:&#160;</string>
     <string name="lbl_time_out">Time Out! Now submitting the Answers.</string>
     <string name="lbl_about_us">About Us</string>
@@ -127,5 +127,61 @@
 
     <string name="facebook_app_id">1444231415667187</string>
     <string name="fb_login_protocol_scheme">fb1444231415667187</string>
+
+    <!-- Sign in / sign up / forgot password (2026-09) -->
+    <string name="hint_email_or_phone">Email or Phone number</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_password_re">Re-type Password</string>
+    <string name="hint_remarks">Remarks (optional)</string>
+    <string name="hint_code">Verification code</string>
+    <string name="hint_new_password">New password</string>
+    <string name="lbl_registration">Registration</string>
+    <string name="lbl_candidate_type">Candidate Type</string>
+    <string name="lbl_medical_college">Medical College</string>
+    <string name="lbl_faculty">Faculty</string>
+    <string name="lbl_subject">Subject</string>
+    <string name="lbl_batch_name">Batch Name</string>
+    <string name="lbl_select_candidate_type">Select candidate type</string>
+    <string name="lbl_select_medical_college">Select medical college</string>
+    <string name="lbl_select_faculty">Select faculty</string>
+    <string name="lbl_select_subject">Select subject</string>
+    <string name="lbl_select_batch">Select batch</string>
+    <string name="lbl_registration_success">Registration Successful!</string>
+    <string name="btn_register">Register</string>
+    <string name="lbl_forgot_password">Forgot Password</string>
+    <string name="lbl_forgot_password_link">Forgot password?</string>
+    <string name="lbl_forgot_password_help">Enter the email address or phone number of your account. A verification code will be sent to your email.</string>
+    <string name="btn_send_code">Send verification code</string>
+    <string name="btn_reset_password">Reset password</string>
+    <string name="lbl_resend_code">Did not get the code? Send again</string>
+    <string name="lbl_code_sent">A verification code has been sent to your email.</string>
+    <string name="lbl_password_reset_done">Your password has been changed. Please sign in.</string>
+    <string name="err_email_or_phone">Enter your email address or phone number</string>
+    <string name="err_code">Enter the verification code</string>
+    <string name="err_network">No connection. Please check your internet and try again.</string>
+
+    <!-- Exam sessions, resume and re-exam (2026-09) -->
+    <string name="lbl_reexam">Reexam</string>
+    <string name="btn_reexam">Reexam</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_continue_later">Continue later</string>
+    <string name="lbl_reexam_count">You have taken this re-exam %1$d time(s).</string>
+    <string name="lbl_reexam_confirmation">Start a re-exam of %1$d minutes? A re-exam is for practice only: it is not counted in the competition or the merit position.</string>
+    <string name="lbl_reexam_resume">You have an unfinished re-exam of this exam. Continue where you left off?</string>
+    <string name="lbl_exam_connecting">Connecting…</string>
+    <string name="lbl_exam_offline_mode">No connection. Your answers are saved on this device and sent when the network is back.</string>
+    <string name="lbl_exam_resumed">Your saved answers have been restored.</string>
+    <string name="lbl_exam_already_submitted">This exam has already been submitted.</string>
+    <string name="lbl_exam_time_expired_submitted">The exam time has expired. The answers you saved were submitted automatically. You can take a re-exam from the Archive after the result is published.</string>
+    <string name="lbl_exam_time_expired_offline">The exam time has expired. Your saved answers will be submitted automatically once the app is connected again.</string>
+    <string name="lbl_exam_submit_failed">Your answers could not be sent. They are saved on this device: reconnect and open the exam again to submit before the time runs out.</string>
+    <string name="lbl_exam_submit_failed_auto">Time is over but the answers could not be sent. They are saved on this device and will be submitted when the app is connected again.</string>
+    <string name="lbl_exam_questions_offline">The questions could not be loaded. Please check your connection and open the exam again.</string>
+    <string name="lbl_resume_exam_hint">Running Exam – you have an unfinished attempt, tap Enter Exam to continue</string>
+    <string name="lbl_attempts">Attempts</string>
 
 </resources>

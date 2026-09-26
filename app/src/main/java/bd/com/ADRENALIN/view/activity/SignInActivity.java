@@ -45,6 +45,8 @@ public class SignInActivity extends BaseActivity {
     TextView txtSignUpLink;
     @BindView(R.id.cbRememberMe)
     CheckBox cbRememberMe;
+    @BindView(R.id.link_forgot_password)
+    TextView txtForgotPassword;
 
 
     private CallbackManager callbackManager;
@@ -76,6 +78,15 @@ public class SignInActivity extends BaseActivity {
             }
         });
 
+        txtForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ForgotPasswordActivity.class);
+                intent.putExtra("email", etEmail.getText().toString().trim());
+                startActivity(intent);
+                AppUtils.startActivityAnimation(context);
+            }
+        });
         txtSignUpLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -95,7 +106,7 @@ public class SignInActivity extends BaseActivity {
 
 //        User user = new User().withEmail("samaruk09@gmail.com").withPassword("asdf1234");
         User user = new User()
-                .withEmail(etEmail.getText().toString())
+                .withEmail(etEmail.getText().toString().trim())
                 .withPassword(etPassword.getText().toString());
 
         LOG.e("LogInCalled11", "Email:" +etEmail.getText().toString());
@@ -161,8 +172,8 @@ public class SignInActivity extends BaseActivity {
         String password = etPassword.getText().toString();
 
         LOG.e("LogInCalled33", "Email:" +email+", password:"+password);
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etEmail.setError(getString(R.string.err_email));
+        if (!isEmailOrPhone(email.trim())) {
+            etEmail.setError(getString(R.string.err_email_or_phone));
             valid = false;
         } else {
             etEmail.setError(null);
@@ -177,5 +188,13 @@ public class SignInActivity extends BaseActivity {
 
         LOG.e("LogInCalled22", "Email:" +valid);
         return valid;
+    }
+
+    /** The sign-in id may be the email address or the phone number of the account. */
+    private static boolean isEmailOrPhone(String value) {
+        if (value == null || value.isEmpty()) return false;
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) return true;
+        String digits = value.replaceAll("[^0-9]", "");
+        return digits.length() >= 8 && value.replaceAll("[0-9+\\-\\s()]", "").isEmpty();
     }
 }

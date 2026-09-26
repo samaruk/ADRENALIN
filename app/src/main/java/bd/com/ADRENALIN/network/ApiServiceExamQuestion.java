@@ -31,6 +31,14 @@ public interface ApiServiceExamQuestion {
     // It actually returns the whole serialized json of Exam that we sent. But we can still get some
     // common property of Exam.
     @Headers("Content-Type: application/json")
+    /** Re-exam attempt: never enters the competition or the merit list. */
+    @POST("Exam/PostReExamAnswer")
+    Call<ApiGenericResponse> sendPostReExamAnswer(@Body Exam exam);
+
+    /** Answers of a re-exam attempt (same shape as Exam/GetAnswer). */
+    @GET("Exam/GetReAnswer/{answerId}")
+    Call<Exam> getReAnswersById(@Path("answerId") int answerId);
+
     @POST("Exam/PostAnswerForBCS")
     Call<ApiGenericResponse> sendPostAnswerForBCS(@Body Exam exam); //The return type isn't exactly an Exam object.
     // It actually returns the whole serialized json of Exam that we sent. But we can still get some

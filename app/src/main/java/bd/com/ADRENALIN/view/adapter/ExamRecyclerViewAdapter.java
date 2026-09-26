@@ -40,6 +40,21 @@ public class ExamRecyclerViewAdapter extends
     private Exam examInfo;
     private boolean isPrevent=false;
 
+    /** Notified on every answer change so the activity can save a draft. */
+    public interface OnAnswerChangedListener {
+        void onAnswerChanged();
+    }
+
+    private OnAnswerChangedListener answerChangedListener;
+
+    public void setOnAnswerChangedListener(OnAnswerChangedListener listener) {
+        this.answerChangedListener = listener;
+    }
+
+    private void notifyAnswerChanged() {
+        if (answerChangedListener != null) answerChangedListener.onAnswerChanged();
+    }
+
     public class RoutineViewHolder extends RecyclerView.ViewHolder {
 
         public CheckBox checkBox;
@@ -108,7 +123,8 @@ public class ExamRecyclerViewAdapter extends
             Question question = questionList.get(i);
             if(question.getTypeId()==1){
                 for (Answer answer : question.getAnswers()) {
-                    answer.setPickedAnswer(0);
+                    // 2 means "not answered yet"; keep answers restored from a saved draft
+                    if (answer.getPickedAnswer() == 2) answer.setPickedAnswer(0);
                 }
             }
         }
@@ -128,11 +144,13 @@ public class ExamRecyclerViewAdapter extends
                     holder.checkBox=null;
                 }
                 LOG.e("CheckedChange", new Gson().toJson(answer));
+                notifyAnswerChanged();
             }
         });
     }
     private void SetMultiChoiceListener(final CheckBox checkBox,final Answer answer,final RoutineViewHolder holder){
-        answer.setPickedAnswer(0);
+        if (answer.getPickedAnswer() == 2) answer.setPickedAnswer(0);
+        checkBox.setChecked(answer.getPickedAnswer() == 1);
         checkBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -144,6 +162,7 @@ public class ExamRecyclerViewAdapter extends
                     holder.checkBox=null;
                 }
                 LOG.e("CheckedChange", new Gson().toJson(answer));
+                notifyAnswerChanged();
             }
         });
     }
@@ -165,6 +184,7 @@ public class ExamRecyclerViewAdapter extends
                     answer.setPickedAnswer(2);
                 }
                 LOG.e("CheckedChange", new Gson().toJson(answer));
+                notifyAnswerChanged();
             }
         });
     }
@@ -191,6 +211,8 @@ public class ExamRecyclerViewAdapter extends
 
                     CheckBox radioGroup = view.findViewById( R.id.chkIsCorrect);
                     holder.options.add(radioGroup);
+                    radioGroup.setChecked(answer.getPickedAnswer() == 1);
+                    if (answer.getPickedAnswer() == 1) holder.checkBox = radioGroup;
                     SetSingleChoiceListener(radioGroup,answer,holder);
 
                     holder.llAnswersOfQuestion.addView(view);
@@ -215,6 +237,8 @@ public class ExamRecyclerViewAdapter extends
                     RadioGroup radioGroup = view.findViewById( R.id.rgAnswers);
                     CheckBox rbTrue = view.findViewById( R.id.rbTrue);
                     CheckBox rbFalse = view.findViewById( R.id.rbFalse);
+                    rbTrue.setChecked(answer.getPickedAnswer() == 1);
+                    rbFalse.setChecked(answer.getPickedAnswer() == 0);
                     SetYesNoListener(rbTrue,rbFalse,answer,1);
                     SetYesNoListener(rbFalse,rbTrue,answer,0);
                     holder.llAnswersOfQuestion.addView(view);

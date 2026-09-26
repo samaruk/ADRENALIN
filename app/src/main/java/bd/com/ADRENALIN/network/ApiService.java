@@ -2,6 +2,12 @@ package bd.com.ADRENALIN.network;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import bd.com.ADRENALIN.pojo.DraftSync;
+import bd.com.ADRENALIN.pojo.ExamAttempt;
+import bd.com.ADRENALIN.pojo.ExamSession;
+import bd.com.ADRENALIN.pojo.RegistrationOptions;
+import bd.com.ADRENALIN.pojo.RegistrationRequest;
 
 import bd.com.ADRENALIN.pojo.ApiGenericResponse;
 import bd.com.ADRENALIN.pojo.Archive;
@@ -142,6 +148,33 @@ public interface ApiService {
 
     ///ExamArea/ExamUserStatus/Create
     @Headers("Content-Type: application/json")
+    /* ---- Forgot password (email OTP) ---- */
+    @POST("/User/ForgotPassword")
+    Call<ResponseJson> forgotPassword(@Body Map<String, String> body);
+
+    @POST("/User/ResetPassword")
+    Call<ResponseJson> resetPassword(@Body Map<String, String> body);
+
+    /* ---- Native sign-up (same endpoint as the web registration page) ---- */
+    @GET("UserArea/AppUser/RegistrationOptions")
+    Call<RegistrationOptions> getRegistrationOptions();
+
+    @POST("UserArea/AppUser/AddAppUser")
+    Call<ResponseJson> registerAppUser(@Body RegistrationRequest body);
+
+    /* ---- Resumable exam sessions and re-exam attempts ---- */
+    @POST("Exam/StartSession")
+    Call<ExamSession> startExamSession(@Body DraftSync body);
+
+    @POST("Exam/SyncDraft")
+    Call<ExamSession> syncExamDraft(@Body DraftSync body);
+
+    @GET("Exam/Session")
+    Call<ExamSession> getExamSession(@Query("UserId") String userId, @Query("ExamId") int examId, @Query("IsReExam") boolean isReExam);
+
+    @GET("Exam/GetAttempts")
+    Call<List<ExamAttempt>> getExamAttempts(@Query("UserId") String userId, @Query("ExamId") int examId);
+
     @POST("/ExamArea/ExamUserStatus/Create")
     Call<ResponseJson> sendExamUserStatus(@Body ExamUserStatus status); //The return type isn't exactly an Exam object.
 

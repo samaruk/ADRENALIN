@@ -28,6 +28,8 @@ public class QuestionSerializer implements JsonSerializer<Exam> {
         examJsonObject.addProperty("U", exam.getUserId());
         examJsonObject.addProperty("D", exam.getDuration());
         examJsonObject.addProperty("StartAt", exam.getStartAt());
+        examJsonObject.addProperty("R", exam.isReExam());
+        examJsonObject.addProperty("V", exam.getDraftVersion());
 
         JsonArray questionListJsonArray = new JsonArray();
 
