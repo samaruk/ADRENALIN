@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_container"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/img_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/banner"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/img_logo_large"-->
+        <!--android:layout_height="@dimen/img_logo_small"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@mipmap/img_dbdart2"/>-->
+
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/img_logo_large"-->
+        <!--android:layout_height="@dimen/img_logo_small"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:background="@mipmap/img_ict_devision"/>-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/img_profile"-->
+        <!--android:layout_width="75dp"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:paddingTop="16dp"-->
+        <!--app:srcCompat="@mipmap/ic_list_white_24dp" />-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_medium_ultra" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:textStyle="italic"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small_ultra" />
+
+            <TextView
+                android:id="@+id/selectedExamType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_small_ultra" />
+
+
+        </LinearLayout>
+
+        <!--<TextView-->
+        <!--android:id="@+id/website"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    </RelativeLayout>
+</RelativeLayout>

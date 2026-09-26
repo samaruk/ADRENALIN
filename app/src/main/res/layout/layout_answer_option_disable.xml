@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="2dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    >
+
+    <TextView
+        android:id="@+id/tvAnsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="5dp"
+        android:layout_toStartOf="@+id/rgAnswers"
+        android:layout_toLeftOf="@+id/rgAnswers"
+        android:textSize="@dimen/text_size_medium"
+        />
+
+    <RadioGroup
+        android:id="@+id/rgAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbTrue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rbtn_answer_selector"
+            android:clickable="false"
+            android:button="@android:color/transparent"
+            android:text="@string/btn_true"
+            android:textSize="@dimen/text_size_small_ultra" />
+
+        <RadioButton
+            android:id="@+id/rbFalse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:background="@drawable/rbtn_answer_selector"
+            android:button="@android:color/transparent"
+            android:text="@string/btn_false"
+            android:textSize="@dimen/text_size_small_ultra" />
+    </RadioGroup>
+</RelativeLayout>

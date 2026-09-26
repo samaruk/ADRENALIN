@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cv"
+    style="@style/CardViewStyle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvRoutineTitle"
+            style="@style/CardViewTextStyle"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="@dimen/text_size_medium_ultra"
+            />
+
+        <TextView
+            android:id="@+id/tvRoutineExamDateAndStatus"
+            style="@style/CardViewLabelStyle"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <at.blogc.android.views.ExpandableTextView
+            android:id="@+id/tvRoutineContent"
+            style="@style/CardViewExpandableTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:animation_duration="@integer/expandable_text_view_animation_duration"/>
+
+    </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginLeft="5dp"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:orientation="vertical">-->
+<!---->
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+                <!--style="@style/CardViewLabelStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/lbl_exam_date"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvRoutineExamDate"-->
+                <!--style="@style/CardViewTextStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+            <!--/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="5dp">-->
+
+            <!--<TextView-->
+                <!--style="@style/CardViewLabelStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/lbl_status"-->
+                <!--android:textSize="@dimen/text_size_medium"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvRoutineStatus"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/text_size_medium_ultra"/>-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="5dp"-->
+            <!--android:layout_marginTop="5dp">-->
+
+            <!--<TextView-->
+                <!--style="@style/CardViewLabelStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/lbl_content_w_colon"-->
+                <!--android:textSize="@dimen/text_size_medium"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvRoutineContent"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="@dimen/text_size_medium"/>-->
+
+        <!--</LinearLayout>-->
+<!---->
+    <!--</LinearLayout>-->
+
+
+</androidx.cardview.widget.CardView>

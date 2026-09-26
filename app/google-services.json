@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "656496820967",
+    "firebase_url": "https://dvec-fb4de.firebaseio.com",
+    "project_id": "dvec-fb4de",
+    "storage_bucket": "dvec-fb4de.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656496820967:android:759451763a74bb5f",
+        "android_client_info": {
+          "package_name": "bd.com.ADRENALIN"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "656496820967-g8boj7vel8mcu5j7cdc6pijk4lq6bp5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bd.com.ADRENALIN",
+            "certificate_hash": "6fd787f73e935b9eb779bbf638c185f04d7b1bc3"
+          }
+        },
+        {
+          "client_id": "656496820967-4vphg3eos4e42600dpc0rf256m7fuian.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1PYRBoGoBlw234SM0c-xljORI8VgcO48"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "656496820967-4vphg3eos4e42600dpc0rf256m7fuian.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

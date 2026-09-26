@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Default colors-->
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+
+    <color name="colorPrimary">@color/primary</color>
+    <color name="colorPrimaryDark">@color/primary_dark</color>
+    <color name="colorAccent">@color/accent</color>
+
+    <color name="white">#ffffff</color>
+    <color name="hint">#777777</color>
+    <color name="white_grayish">#f5f5f5</color>
+    <color name="black_mid">#2e2e2e</color>
+    <color name="black_transparent">#99000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="green_transparent">#99FFFF00</color>
+    <color name="green">#68972f</color>
+    <color name="orange_red">#ff4500</color>
+    <color name="yellow">#eecc33</color>
+    <color name="sky_blue">#cfe5fc</color>
+    <color name="light_grayish_yellow">#f7f3d6</color>
+
+    <color name="gray">#808080</color>
+    <color name="gray_mid">#727272</color>
+    <color name="gray_light">#e0e0e0</color>
+    <color name="gray_dark">#414141</color>
+    <color name="gray_ash">#BBBBBB</color>
+
+    <!-- Screens background color-->
+    <color name="bg_screen1">#f64c73</color>
+    <color name="bg_screen2">#20d2bb</color>
+    <color name="bg_screen3">#3395ff</color>
+    <color name="bg_screen4">#c873f4</color>
+
+    <!--<color name="primary">#E43F3F</color>-->
+    <!--<color name="primary_dark">#E12929</color>-->
+    <!--<color name="primary_darker">#CC1D1D</color>-->
+    <color name="accent">#FF4081</color>
+
+    <color name="primary_light">#18ffff</color>
+    <color name="primary">#00e5ff</color>
+    <color name="primary_dark">#0079b5</color>
+    <!--<color name="primary_darker">#CC1D1D</color>-->
+    <!--<color name="accent">#FFFFFF</color>-->
+
+    <color name="secondary">#7e57c2</color>
+    <color name="secondary_light">#b085f5</color>
+    <color name="secondary_dark">#4d2c91</color>
+    <color name="text_color_primary">#212121</color>
+    <color name="text_color_secondary">#555555</color>
+    <color name="background">#EEEEEE</color>
+
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+
+</resources>

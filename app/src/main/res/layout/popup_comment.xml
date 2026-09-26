@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/popUpToolbar" >
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|start"
+                android:background="?attr/colorPrimary"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large"
+                android:paddingLeft="0dp"
+                android:text="@string/btn_cancel" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <EditText
+            android:id="@+id/txtComment"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:minLines="2"
+            android:gravity="left"
+            android:maxLines="6"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:layout_marginTop="@dimen/activity_vertical_margin_half"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_app"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_app"
+            android:paddingLeft="@dimen/text_padding"
+            android:paddingRight="@dimen/text_padding"
+            android:paddingTop="@dimen/text_padding"
+            android:paddingBottom="@dimen/text_padding"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Type your discusion here" />
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|start"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_app"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/txtComment"
+            android:text="@string/btn_save" />
+        <Button
+            android:id="@+id/btnUpload"
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|start"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_app"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/txtComment"
+            android:text="@string/btn_add_image" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin_half"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin_app"
+            android:layout_marginRight="@dimen/activity_horizontal_margin_app"
+            android:layout_centerInParent="true"
+            android:clipToPadding="false"
+            android:layout_below="@+id/btnUpload"
+            android:scrollbars="vertical"/>
+
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

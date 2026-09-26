@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdk 34
+    defaultConfig {
+        applicationId "bd.com.ADRENALIN"
+        minSdkVersion 19
+        targetSdkVersion 34
+        versionCode 20
+        versionName "1.20"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        multiDexEnabled true
+    }
+    buildTypes {
+        //TODO: MUST check each lib for proguard configuration //
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java/bd/com/dvec/pojo/PostModel', 'src/main/java/Proj', 'src/main/java/ResponseModel', 'src/main/java/bd/com/dvec/proj/ResponseModel']
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.13'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.browser:browser:1.3.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "org.java-websocket:Java-WebSocket:1.3.0"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.multidex:multidex:2.0.1'
+
+    //Timber
+//    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    // http://square.github.io/retrofit/
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // https://stackoverflow.com/a/33256827
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.6.0'
+
+    // http://jakewharton.github.io/butterknife/
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    // http://greenrobot.org/eventbus/
+    // ProGuard config: http://greenrobot.org/eventbus/documentation/proguard
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    // https://github.com/square/leakcanary/wiki/FAQ#why-should-i-use-leakcanary
+//    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.6-SNAPSHOT'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.6-SNAPSHOT'
+
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
+    implementation 'at.blogc:expandabletextview:1.0.3'
+
+    // Android SDK
+    implementation 'com.facebook.android:facebook-android-sdk:4.24.0'
+
+    // Google Sign In Auth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+    implementation 'com.google.firebase:firebase-core:18.0.0'
+
+}
+
+apply plugin: 'com.google.gms.google-services' // For Google Sign In. Also see why its in the bottom. https://stackoverflow.com/a/38834120/2709580

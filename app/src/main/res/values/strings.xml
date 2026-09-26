@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name_long">ADRENALIN</string>
+    <string name="app_name">ADRENALIN</string>
+    <string name="app_motto">Residency, FCPS, MRCP, MRCS, Diploma &amp; BCS</string>
+    <string name="dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+
+    <string-array name="items_array_drawer">
+        <item>@string/lbl_home</item>
+        <item>@string/lbl_user_profile</item>
+        <item>@string/lbl_merit_list</item>
+        <item>@string/lbl_notice</item>
+        <!--<item>@string/lbl_alarm</item>-->
+        <item>@string/lbl_rate_us</item>
+    </string-array>
+    <string name="spnr_candidate_type_title">Candidate Type</string>
+    <string-array name="codes">
+        <item>91</item>
+        <item>93</item>
+        <item>355</item>
+        <item>213</item>
+        <item>376</item>
+        <item>244</item>
+        <item>672</item>
+        <item>54</item>
+        <item>374</item>
+        <item>297</item>
+        <item>61</item>
+        <item>43</item>
+        <item>994</item>
+        <item>973</item>
+        <item>880</item>
+    </string-array>
+
+    <!--Labels-->
+    <string name="lbl_enter_exam">Enter Exam</string>
+    <string name="lbl_next_exam">Next Exam</string>
+    <string name="lbl_start_at_colon">Start At:&#160;</string>
+    <string name="lbl_end_at_colon">End At:&#160;</string>
+    <string name="lbl_duration_colon">Duration:&#160;</string>
+    <string name="lbl_routine">Routine</string>
+    <string name="lbl_answer_summary">Answer Summary</string>
+    <string name="lbl_answer_summary_of">Answer Summary Of&#160;</string>
+    <string name="lbl_answer">Answer</string>
+    <string name="lbl_result">Result</string>
+    <string name="lbl_archive">Archive</string>
+    <string name="lbl_merit_list">Merit List</string>
+    <string name="lbl_sign_up">Sign Up</string>
+    <string name="lbl_home">Home</string>
+    <string name="lbl_notice">Notice</string>
+    <string name="lbl_alarm">Alarm</string>
+    <string name="lbl_rate_us">Rate Us</string>
+    <string name="lbl_user_profile">User Profile</string>
+    <string name="lbl_book">Book</string>
+    <string name="lbl_book_list">Book List</string>
+    <string name="lbl_course_plan">Course Plan</string>
+    <string name="lbl_app_review">App Review</string>
+    <string name="lbl_lecture">Lecture</string>
+    <string name="txt_btn_short_explanation_show">Show Details</string>
+    <string name="txt_btn_short_explanation_hide">Hide Details</string>
+    <string name="lbl_exam_discussion">Exam Discussion</string>
+    <string name="lbl_exam_type_select">Pick your desired Exam Type</string>
+    <string name="lbl_exam_submit_confirmation">Do you really want to Submit?</string>
+    <string name="lbl_bcs">BCS</string>
+    <string name="lbl_govt_job">Govt. Job</string>
+    <string name="lbl_position">Pos</string>
+    <string name="lbl_mark">Mark</string>
+    <string name="lbl_name">Name</string>
+    <string name="lbl_log_out_confirmation">You tap on Log Out. Proceed?</string>
+    <string name="lbl_exam_show_or_ans">Choose your option.</string>
+    <string name="lbl_exam_show_or_discussion">You can either view the discussion of this exam or simply view the exam questions.</string>
+    <string name="lbl_show_question_wo_performing_exam_first">You\'ve not performed the Exam yet.
+        Note that, if you only pay to show Question before performing the Exam then you won\'t be able to perform this Exam at all afterwards.
+        Do you really want to skip this Exam and see only the Exam Question?</string>
+    <string name="lbl_exam_date">Exam Date:&#160;</string>
+    <string name="lbl_status">Status:&#160; </string>
+    <string name="lbl_syllabus_w_colon">Syllabus:&#160; </string>
+    <string name="lbl_content_w_colon">Content:&#160; </string>
+    <string name="lbl_routine_section_below">See \'Routine\' section below for whole Routine</string>
+    <string name="lbl_go_back_warning">Going back will automatically submit the running Exam and you can not perform this Exam again.</string>
+    <string name="lbl_time_remaining">Time Remaining:&#160;</string>
+    <string name="lbl_time_out">Time Out! Now submitting the Answers.</string>
+    <string name="lbl_about_us">About Us</string>
+    <string name="lbl_advisors">Our Advisors</string>
+    <string name="lbl_log_out">Log Out</string>
+    <string name="lbl_no_data">No Data Found</string>
+    <string name="lbl_exam_now_warning">You can perform this exam on &#160;</string>
+    <string name="lbl_payment_success">Payment successful. Going to Exam page in a moment.</string>
+    <string name="lbl_payment_failed">Something went wrong and your Payment is failed. Going back to the last page in a moment.</string>
+
+
+    <string name="btn_ok">Ok</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_show_only_question">Show Question.</string>
+    <string name="btn_log_me_out">Log Me Out</string>
+    <string name="btn_exam_perform">Perform Exam</string>
+    <string name="btn_exam_discussion">Show Discussion</string>
+    <string name="btn_question_show">Show Question</string>
+    <string name="btn_true">True</string>
+    <string name="btn_false">False</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_add_image">Add Image</string>
+    <string name="btn_reply">Reply</string>
+    <string name="btn_load_more">Load More</string>
+    <string name="btn_discussion">Add Discussion</string>
+    <string name="btn_review">Add Review</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_update_password">Update Password</string>
+    <string name="btn_change_password">Change Password</string>
+    <string name="btn_quit">I want to quit anyway</string>
+
+
+    <!--Error messages/texts-->
+    <string name="err_server">Server Error</string>
+    <string name="err_name">At least 3 characters</string>
+    <string name="err_email">Enter a valid email address</string>
+    <string name="err_phone">Enter valid phone Number</string>
+    <string name="err_password">Minimum 6 characters required</string>
+    <string name="err_password_re">Password Do not match</string>
+
+
+    <string name="fb_page">https://www.facebook.com/groups/419870195107263/?ref=share</string>
+    <string name="powered_by">Powered by Iqrasys.com</string>
+    <string name="powered_by_url">http://www.Iqrasys.com</string>
+
+    <string name="facebook_app_id">1444231415667187</string>
+    <string name="fb_login_protocol_scheme">fb1444231415667187</string>
+
+</resources>
