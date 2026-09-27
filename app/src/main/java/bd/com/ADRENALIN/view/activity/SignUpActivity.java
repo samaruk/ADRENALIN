@@ -142,7 +142,14 @@ public class SignUpActivity extends BaseActivity {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString();
         String passwordRe = etPasswordRe.getText().toString();
+        String phone = etPhone.getText().toString().trim();
 
+        if (!phone.matches("[0-9]{8,15}")) {
+            etPhone.setError(getString(R.string.err_phone_digits));
+            valid = false;
+        } else {
+            etPhone.setError(null);
+        }
         if (name.isEmpty()) {
             etName.setError(getString(R.string.err_name));
             valid = false;

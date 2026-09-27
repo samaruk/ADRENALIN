@@ -132,7 +132,7 @@
     <string name="hint_email_or_phone">Email or Phone number</string>
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
-    <string name="hint_phone">Phone</string>
+    <string name="hint_phone">Mobile number (digits only)</string>
     <string name="hint_password">Password</string>
     <string name="hint_password_re">Re-type Password</string>
     <string name="hint_remarks">Remarks (optional)</string>
@@ -160,6 +160,8 @@
     <string name="lbl_code_sent">A verification code has been sent to you.</string>
     <string name="lbl_password_reset_done">Your password has been changed. Please sign in.</string>
     <string name="err_email_or_phone">Enter your email address or phone number</string>
+    <string name="err_password_required">Enter your password</string>
+    <string name="err_phone_digits">Enter your mobile number (digits only, 8 to 15 digits)</string>
     <string name="err_code">Enter the verification code</string>
     <string name="err_network">No connection. Please check your internet and try again.</string>
 

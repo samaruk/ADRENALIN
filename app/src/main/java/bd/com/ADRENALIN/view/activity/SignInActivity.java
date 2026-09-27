@@ -179,8 +179,8 @@ public class SignInActivity extends BaseActivity {
             etEmail.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 6) {
-            etPassword.setError(getString(R.string.err_password));
+        if (password.isEmpty()) {
+            etPassword.setError(getString(R.string.err_password_required));
             valid = false;
         } else {
             etPassword.setError(null);
