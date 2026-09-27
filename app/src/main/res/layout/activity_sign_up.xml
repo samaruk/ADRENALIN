@@ -54,19 +54,19 @@
                 android:visibility="gone" />
 
             <TextView style="@style/CardViewLabelStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/lbl_candidate_type" />
-            <Spinner android:id="@+id/spCategory" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" />
+            <Spinner android:id="@+id/spCategory" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" android:popupBackground="@color/white" android:spinnerMode="dropdown" />
 
             <TextView style="@style/CardViewLabelStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/lbl_medical_college" />
-            <Spinner android:id="@+id/spMedicalCollege" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" />
+            <Spinner android:id="@+id/spMedicalCollege" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" android:popupBackground="@color/white" android:spinnerMode="dropdown" />
 
             <TextView style="@style/CardViewLabelStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/lbl_faculty" />
-            <Spinner android:id="@+id/spFaculty" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" />
+            <Spinner android:id="@+id/spFaculty" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" android:popupBackground="@color/white" android:spinnerMode="dropdown" />
 
             <TextView style="@style/CardViewLabelStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/lbl_subject" />
-            <Spinner android:id="@+id/spDepartment" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" />
+            <Spinner android:id="@+id/spDepartment" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" android:popupBackground="@color/white" android:spinnerMode="dropdown" />
 
             <TextView style="@style/CardViewLabelStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="@string/lbl_batch_name" />
-            <Spinner android:id="@+id/spBatch" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" />
+            <Spinner android:id="@+id/spBatch" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/rounded_edittext" android:padding="10dp" android:popupBackground="@color/white" android:spinnerMode="dropdown" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

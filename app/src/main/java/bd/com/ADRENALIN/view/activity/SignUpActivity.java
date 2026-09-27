@@ -100,8 +100,8 @@ public class SignUpActivity extends BaseActivity {
         List<RegistrationOptions.Item> list = new ArrayList<>();
         list.add(new RegistrationOptions.Item(0, placeholder));
         list.addAll(items);
-        ArrayAdapter<RegistrationOptions.Item> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<RegistrationOptions.Item> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, list);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
