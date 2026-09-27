@@ -32,6 +32,9 @@ import retrofit2.Response;
  * Native sign-up screen. Posts to the same endpoint as the web registration page
  * (UserArea/AppUser/AddAppUser), so accounts are created exactly as before.
  *
+ * Fields are laid out two per row (Name and Address use the full width). The dropdowns list
+ * only the real values from the server, and the first value is selected by default.
+ *
  * Created by mahfuz on 7/5/17.
  */
 public class SignUpActivity extends BaseActivity {
@@ -47,6 +50,8 @@ public class SignUpActivity extends BaseActivity {
     EditText etEmail;
     @BindView(R.id.input_phone)
     EditText etPhone;
+    @BindView(R.id.input_address)
+    EditText etAddress;
     @BindView(R.id.input_password)
     EditText etPassword;
     @BindView(R.id.input_password_re)
@@ -81,12 +86,6 @@ public class SignUpActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SignUpActivity.this.setTitle(getString(R.string.lbl_sign_up));
 
-        bindSpinner(spCategory, new ArrayList<RegistrationOptions.Item>(), getString(R.string.lbl_select_candidate_type));
-        bindSpinner(spMedicalCollege, new ArrayList<RegistrationOptions.Item>(), getString(R.string.lbl_select_medical_college));
-        bindSpinner(spFaculty, new ArrayList<RegistrationOptions.Item>(), getString(R.string.lbl_select_faculty));
-        bindSpinner(spDepartment, new ArrayList<RegistrationOptions.Item>(), getString(R.string.lbl_select_subject));
-        bindSpinner(spBatch, new ArrayList<RegistrationOptions.Item>(), getString(R.string.lbl_select_batch));
-
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,13 +95,14 @@ public class SignUpActivity extends BaseActivity {
         loadOptions();
     }
 
-    private void bindSpinner(Spinner spinner, List<RegistrationOptions.Item> items, String placeholder) {
+    /** Only the available values are listed (no "Select ..." entry); the first one is selected. */
+    private void bindSpinner(Spinner spinner, List<RegistrationOptions.Item> items) {
         List<RegistrationOptions.Item> list = new ArrayList<>();
-        list.add(new RegistrationOptions.Item(0, placeholder));
-        list.addAll(items);
+        if (items != null) list.addAll(items);
         ArrayAdapter<RegistrationOptions.Item> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, list);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        if (!list.isEmpty()) spinner.setSelection(0);
     }
 
     private long selectedId(Spinner spinner) {
@@ -121,11 +121,11 @@ public class SignUpActivity extends BaseActivity {
                             return;
                         }
                         options = result;
-                        bindSpinner(spCategory, result.getCategories(), getString(R.string.lbl_select_candidate_type));
-                        bindSpinner(spMedicalCollege, result.getMedicalColleges(), getString(R.string.lbl_select_medical_college));
-                        bindSpinner(spFaculty, result.getFaculties(), getString(R.string.lbl_select_faculty));
-                        bindSpinner(spDepartment, result.getDepartments(), getString(R.string.lbl_select_subject));
-                        bindSpinner(spBatch, result.getBatches(), getString(R.string.lbl_select_batch));
+                        bindSpinner(spCategory, result.getCategories());
+                        bindSpinner(spMedicalCollege, result.getMedicalColleges());
+                        bindSpinner(spFaculty, result.getFaculties());
+                        bindSpinner(spDepartment, result.getDepartments());
+                        bindSpinner(spBatch, result.getBatches());
                     }
 
                     @Override
@@ -135,8 +135,11 @@ public class SignUpActivity extends BaseActivity {
                 }));
     }
 
+    /**
+     * Checks the form. Name, email, mobile number and password are required; address and
+     * remarks are optional. The first problem is also shown above the form and focused.
+     */
     private boolean validate() {
-        boolean valid = true;
         tvError.setVisibility(View.GONE);
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
@@ -144,37 +147,38 @@ public class SignUpActivity extends BaseActivity {
         String passwordRe = etPasswordRe.getText().toString();
         String phone = etPhone.getText().toString().trim();
 
-        if (!phone.matches("[0-9]{8,15}")) {
-            etPhone.setError(getString(R.string.err_phone_digits));
-            valid = false;
-        } else {
-            etPhone.setError(null);
+        String firstError = null;
+        EditText firstField = null;
+
+        String error = name.isEmpty() ? getString(R.string.err_name_required) : null;
+        etName.setError(error);
+        if (error != null && firstError == null) { firstError = error; firstField = etName; }
+
+        error = email.isEmpty() ? getString(R.string.err_email_required)
+                : !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ? getString(R.string.err_email) : null;
+        etEmail.setError(error);
+        if (error != null && firstError == null) { firstError = error; firstField = etEmail; }
+
+        error = phone.matches("[0-9]{8,15}") ? null : getString(R.string.err_phone_digits);
+        etPhone.setError(error);
+        if (error != null && firstError == null) { firstError = error; firstField = etPhone; }
+
+        // Password errors carry no icon so the show/hide eye stays visible
+        error = password.length() < 6 ? getString(R.string.err_password) : null;
+        etPassword.setError(error, null);
+        if (error != null && firstError == null) { firstError = error; firstField = etPassword; }
+
+        error = password.equals(passwordRe) ? null : getString(R.string.err_password_re);
+        etPasswordRe.setError(error, null);
+        if (error != null && firstError == null) { firstError = error; firstField = etPasswordRe; }
+
+        if (firstError != null) {
+            tvError.setText(firstError);
+            tvError.setVisibility(View.VISIBLE);
+            firstField.requestFocus();
+            return false;
         }
-        if (name.isEmpty()) {
-            etName.setError(getString(R.string.err_name));
-            valid = false;
-        } else {
-            etName.setError(null);
-        }
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            etEmail.setError(getString(R.string.err_email));
-            valid = false;
-        } else {
-            etEmail.setError(null);
-        }
-        if (password.isEmpty() || password.length() < 6) {
-            etPassword.setError(getString(R.string.err_password));
-            valid = false;
-        } else {
-            etPassword.setError(null);
-        }
-        if (!password.equals(passwordRe)) {
-            etPasswordRe.setError(getString(R.string.err_password_re));
-            valid = false;
-        } else {
-            etPasswordRe.setError(null);
-        }
-        return valid;
+        return true;
     }
 
     private void register() {
@@ -184,6 +188,7 @@ public class SignUpActivity extends BaseActivity {
         request.name = etName.getText().toString().trim();
         request.email = etEmail.getText().toString().trim();
         request.phone = etPhone.getText().toString().trim();
+        request.address = etAddress.getText().toString().trim();
         request.password = etPassword.getText().toString();
         request.remarks = etRemarks.getText().toString().trim();
         request.categoryId = selectedId(spCategory);

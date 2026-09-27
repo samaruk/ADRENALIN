@@ -216,4 +216,71 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <!-- Sign-up form: label above a white rounded box, two columns per row -->
+    <style name="FormLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">@dimen/text_size_small_ultra</item>
+    </style>
+
+    <style name="FormInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:background">@drawable/rounded_edittext</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="FormColumnStart">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="FormColumnEnd" parent="FormColumnStart">
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginLeft">6dp</item>
+    </style>
+
+    <style name="FormSpinnerBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">46dp</item>
+        <item name="android:background">@drawable/rounded_edittext</item>
+    </style>
+
+    <style name="FormSpinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">28dp</item>
+        <item name="android:popupBackground">@color/white</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
+    <style name="FormSpinnerArrow">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:src">@drawable/ic_arrow_drop_down</item>
+    </style>
+
 </resources>

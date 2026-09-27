@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
+import com.google.android.material.textfield.TextInputLayout;
 import com.facebook.login.LoginManager;
 
 import bd.com.ADRENALIN.network.ApiCallback;
@@ -39,6 +40,8 @@ public class SignInActivity extends BaseActivity {
     EditText etEmail;
     @BindView(R.id.input_password)
     EditText etPassword;
+    @BindView(R.id.til_password)
+    TextInputLayout tilPassword;
     @BindView(R.id.btn_login)
     Button btnLogin;
     @BindView(R.id.link_signup)
@@ -171,7 +174,7 @@ public class SignInActivity extends BaseActivity {
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        LOG.e("LogInCalled33", "Email:" +email+", password:"+password);
+        LOG.e("LogInCalled33", "Email:" + email);
         if (!isEmailOrPhone(email.trim())) {
             etEmail.setError(getString(R.string.err_email_or_phone));
             valid = false;
@@ -179,11 +182,13 @@ public class SignInActivity extends BaseActivity {
             etEmail.setError(null);
         }
 
+        // Shown under the field so the error icon does not cover the show/hide password eye
         if (password.isEmpty()) {
-            etPassword.setError(getString(R.string.err_password_required));
+            tilPassword.setError(getString(R.string.err_password_required));
             valid = false;
         } else {
-            etPassword.setError(null);
+            tilPassword.setError(null);
+            tilPassword.setErrorEnabled(false);
         }
 
         LOG.e("LogInCalled22", "Email:" +valid);

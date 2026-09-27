@@ -185,5 +185,17 @@
     <string name="lbl_exam_questions_offline">The questions could not be loaded. Please check your connection and open the exam again.</string>
     <string name="lbl_resume_exam_hint">Running Exam – you have an unfinished attempt, tap Enter Exam to continue</string>
     <string name="lbl_attempts">Attempts</string>
+    <string name="lbl_name_required">Name *</string>
+    <string name="lbl_email_required">Email *</string>
+    <string name="lbl_mobile_required">Mobile number *</string>
+    <string name="lbl_address_optional">Address (optional)</string>
+    <string name="lbl_remarks_optional">Remarks (optional)</string>
+    <string name="lbl_password_required">Password *</string>
+    <string name="lbl_password_re_required">Confirm password *</string>
+    <string name="hint_digits_only">Digits only</string>
+    <string name="hint_address">House, road, area, district</string>
+    <string name="err_email_required">Email is required</string>
+    <string name="err_name_required">Enter your name</string>
+    <string name="lbl_show_password">Show or hide the password</string>
 
 </resources>

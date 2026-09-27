@@ -14,6 +14,9 @@ public class RegistrationRequest {
     public String password;
     @SerializedName("Remarks")
     public String remarks;
+    /** Optional postal address. */
+    @SerializedName("Address")
+    public String address;
     @SerializedName("CategoryId")
     public long categoryId;
     @SerializedName("MedicalCollageId")
