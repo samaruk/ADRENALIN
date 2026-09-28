@@ -6,7 +6,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.content.pm.PackageManager;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import androidx.annotation.IdRes;
 
@@ -60,7 +69,11 @@ import bd.com.ADRENALIN.pojo.ExamType;
 import bd.com.ADRENALIN.pojo.NotificationEventModel;
 import bd.com.ADRENALIN.pojo.ResponseModel.ResponseJsonGeneric;
 import bd.com.ADRENALIN.pojo.User;
+import bd.com.ADRENALIN.pojo.content.NoticeSummaryResponse;
 import bd.com.ADRENALIN.util.AppConstants;
+import bd.com.ADRENALIN.util.ContentUi;
+import bd.com.ADRENALIN.util.NoticeChecker;
+import bd.com.ADRENALIN.util.NoticeState;
 import bd.com.ADRENALIN.util.AppUtils;
 import bd.com.ADRENALIN.view.adapter.DrawerAdapter;
 import bd.com.ADRENALIN.view.fragment.AboutUsFragment;
@@ -106,6 +119,19 @@ public class MainActivity extends BaseActivity {
 
     public static final int MAIN_CONTENT_ID = R.id.main_content;
 
+    /** How often the open home screen asks for new notices. */
+    private static final long NOTICE_POLL_MS = 60 * 1000L;
+    private static final int REQUEST_NOTIFICATIONS = 71;
+    private TextView bellBadge;
+    private final Handler noticeHandler = new Handler(Looper.getMainLooper());
+    private final Runnable noticePoll = new Runnable() {
+        @Override
+        public void run() {
+            checkNotices();
+            noticeHandler.postDelayed(this, NOTICE_POLL_MS);
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,6 +170,96 @@ public class MainActivity extends BaseActivity {
         }
         //FirebaseMessaging.getInstance().send(new RemoteMessage());
         //connectWebSocket();
+
+        // New notices: background check with a notification, and the bell on this screen
+        NoticeChecker.ensureChannel(context);
+        NoticeChecker.schedule(context);
+        askNotificationPermission();
+    }
+
+    /** Android 13+ asks before an app may show notifications; asked once. */
+    private void askNotificationPermission() {
+        if (Build.VERSION.SDK_INT < 33) return;
+        String permission = "android.permission.POST_NOTIFICATIONS";
+        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) return;
+        android.content.SharedPreferences prefs = getSharedPreferences("adrenalin_notices", MODE_PRIVATE);
+        if (prefs.getBoolean("asked_permission", false)) return;
+        prefs.edit().putBoolean("asked_permission", true).apply();
+        ActivityCompat.requestPermissions(this, new String[]{permission}, REQUEST_NOTIFICATIONS);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_notices);
+        View bell = item.getActionView();
+        if (bell != null) {
+            ContentUi.tint((ImageView) bell.findViewById(R.id.bell_icon), R.drawable.ic_cc_bell, R.color.white);
+            bellBadge = bell.findViewById(R.id.bell_badge);
+            bell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openNotices();
+                }
+            });
+            showBadge(NoticeState.badge(context));
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_notices) {
+            openNotices();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        noticeHandler.removeCallbacks(noticePoll);
+        noticeHandler.post(noticePoll);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        noticeHandler.removeCallbacks(noticePoll);
+    }
+
+    private void openNotices() {
+        showBadge(0);
+        startActivity(new Intent(context, NoticeActivity.class));
+        AppUtils.startActivityAnimation(context);
+    }
+
+    private void showBadge(int count) {
+        if (bellBadge == null) return;
+        bellBadge.setVisibility(count > 0 ? View.VISIBLE : View.GONE);
+        bellBadge.setText(count > 99 ? "99+" : String.valueOf(count));
+    }
+
+    /** Updates the bell badge; a notice that has not rung yet plays the notification sound. */
+    private void checkNotices() {
+        RetrofitClient.getApiService(context).getNoticeSummary().enqueue(new Callback<NoticeSummaryResponse>() {
+            @Override
+            public void onResponse(Call<NoticeSummaryResponse> call, Response<NoticeSummaryResponse> response) {
+                NoticeSummaryResponse body = response.body();
+                if (body == null || body.IsError || isFinishing()) return;
+                NoticeState.Result result = NoticeState.update(context, body.Items);
+                showBadge(result.unread);
+                if (!result.fresh.isEmpty()) {
+                    NoticeChecker.playSound(context);
+                    showMsg(getString(R.string.lbl_new_notice) + ": " + (body.LatestTitle == null ? "" : body.LatestTitle));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NoticeSummaryResponse> call, Throwable t) {
+            }
+        });
     }
 
     private void getNotification(int eventId) {
@@ -174,7 +290,8 @@ public class MainActivity extends BaseActivity {
                                 // Get Next Exam info after getting the Exam Type
 
                                 if (data.Type == 1) {
-                                    selectItem(3); // Loading Home Fragment from Navigation Drawer
+                                    selectItem(0); // Home, with the notice list on top
+                                    openNotices();
                                 } else if (data.Type == 2) {
                                     selectItem(0); // Loading Home Fragment from Navigation Drawer
                                 } else if (data.Type == 3) {
@@ -334,8 +451,7 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case 3:
-                fragment = new NoticeFragment();
-                collapsingToolbarTitle = getString(R.string.lbl_notice);
+                openNotices();
                 break;
 
 //            case 4:
@@ -378,8 +494,8 @@ public class MainActivity extends BaseActivity {
                 break;
 
             case R.id.tvAboutUs:
-                fragment = new AboutUsFragment();
-                collapsingToolbarTitle = getString(R.string.lbl_about_us);
+                startActivity(new Intent(context, AboutUsActivity.class));
+                AppUtils.startActivityAnimation(context);
                 break;
 
             case R.id.tvLogOut:

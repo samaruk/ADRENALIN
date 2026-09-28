@@ -33,7 +33,8 @@ public class RetrofitClient {
     //http://www.docxambd.com/
 //    public static final String BASE_URL = "http://gis.laconicsoft.com/";
     //public static final String BASE_URL = "http://docxambd.com/";
-    public static final String BASE_URL = "http://192.168.1.235:7988/";
+    /** Server address; set in app/build.gradle (a test build may pass -PbaseUrl=http://10.0.2.2:5094/). */
+    public static final String BASE_URL = BuildConfig.BASE_URL;
     public static final String BASE_URL_MOCKY = "http://www.mocky.io/v2/";
 
     public static final String QUESTION_SERIALIZER = "QUESTION_SERIALIZER";

@@ -116,9 +116,9 @@ public class HomeFragment extends BaseFragment {
         homeItems.add(getString(R.string.lbl_routine));
         homeItems.add(getString(R.string.lbl_result));
         homeItems.add(getString(R.string.lbl_archive));
-        homeItems.add(getString(R.string.lbl_book_list));
+        homeItems.add(getString(R.string.lbl_all_courses));
         homeItems.add(getString(R.string.lbl_course_plan));
-        homeItems.add(getString(R.string.lbl_app_review));
+        homeItems.add(getString(R.string.lbl_about_us));
         homeItems.add(getString(R.string.lbl_lecture));
 
         recyclerView.setHasFixedSize(true);

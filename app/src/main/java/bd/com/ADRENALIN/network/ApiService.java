@@ -28,6 +28,17 @@ import bd.com.ADRENALIN.pojo.ResponseJson;
 import bd.com.ADRENALIN.pojo.ResponseJsonList;
 import bd.com.ADRENALIN.pojo.ResponseModel.ResponseJsonGeneric;
 import bd.com.ADRENALIN.pojo.User;
+import bd.com.ADRENALIN.pojo.content.AboutResponse;
+import bd.com.ADRENALIN.pojo.content.ContentResponse;
+import bd.com.ADRENALIN.pojo.content.Course;
+import bd.com.ADRENALIN.pojo.content.CoursePlanResponse;
+import bd.com.ADRENALIN.pojo.content.LectureDetailResponse;
+import bd.com.ADRENALIN.pojo.content.LectureListResponse;
+import bd.com.ADRENALIN.pojo.content.LectureSubject;
+import bd.com.ADRENALIN.pojo.content.NoticeFeedResponse;
+import bd.com.ADRENALIN.pojo.content.NoticeItemResponse;
+import bd.com.ADRENALIN.pojo.content.NoticeSummaryResponse;
+import bd.com.ADRENALIN.pojo.content.PasswordResetConfig;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -177,6 +188,37 @@ public interface ApiService {
 
     @POST("/ExamArea/ExamUserStatus/Create")
     Call<ResponseJson> sendExamUserStatus(@Body ExamUserStatus status); //The return type isn't exactly an Exam object.
+
+    /* ---- Content managed from the admin panel (2026-09) ---- */
+    @GET("Course/List")
+    Call<ContentResponse<List<Course>>> getCourses();
+
+    @GET("Course/Plan")
+    Call<CoursePlanResponse> getCoursePlanOf(@Query("TypeId") long typeId);
+
+    @GET("Lectures/Subjects")
+    Call<ContentResponse<List<LectureSubject>>> getLectureSubjects(@Query("UserId") String userId);
+
+    @GET("Lectures/List")
+    Call<LectureListResponse> getSubjectLectures(@Query("SubjectId") long subjectId, @Query("UserId") String userId);
+
+    @GET("Lectures/Detail")
+    Call<LectureDetailResponse> getLectureContent(@Query("Id") long lectureId, @Query("UserId") String userId);
+
+    @GET("AboutInfo/Detail")
+    Call<AboutResponse> getAboutInfo();
+
+    @GET("Notices/Feed")
+    Call<NoticeFeedResponse> getNoticeFeed(@Query("Take") int take);
+
+    @GET("Notices/Summary")
+    Call<NoticeSummaryResponse> getNoticeSummary();
+
+    @GET("Notices/Item")
+    Call<NoticeItemResponse> getNoticeItem(@Query("Id") long noticeId);
+
+    @GET("AppConfig/PasswordReset")
+    Call<PasswordResetConfig> getPasswordResetConfig();
 
 
 }

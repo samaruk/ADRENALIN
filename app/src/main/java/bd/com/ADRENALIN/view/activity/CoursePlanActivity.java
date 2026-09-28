@@ -1,82 +1,72 @@
 package bd.com.ADRENALIN.view.activity;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
+import android.text.TextUtils;
 
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import bd.com.ADRENALIN.network.ApiCallback;
-import bd.com.ADRENALIN.network.RetrofitClient;
-import bd.com.ADRENALIN.pojo.ExamType;
 import bd.com.ADRENALIN.R;
-import bd.com.ADRENALIN.view.adapter.CoursePlanRecyclerViewAdapter;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import bd.com.ADRENALIN.network.RetrofitClient;
+import bd.com.ADRENALIN.pojo.content.ContentResponse;
+import bd.com.ADRENALIN.pojo.content.Course;
+import bd.com.ADRENALIN.util.AppUtils;
+import bd.com.ADRENALIN.view.adapter.content.RowAdapter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by mahfuz on 7/7/17.
- */
-
-public class CoursePlanActivity extends BaseActivity {
-
-    public static final String TAG = CoursePlanActivity.class.getSimpleName();
-    private Context context;
-
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+/** Course Plan: the list of courses; a course opens its plan point by point (managed on /ExamType). */
+public class CoursePlanActivity extends ContentListActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_plan);
-        ButterKnife.bind(this);
-
-        context = this;
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        CoursePlanActivity.this.setTitle(getString(R.string.lbl_course_plan));
-
-        getCoursePlanFromApi();
+        onCreate(savedInstanceState, getString(R.string.lbl_course_plan));
     }
 
-    private void getCoursePlanFromApi() {
-        ExamType examTypeSelected = getPrefManager().getExamTypeSelected();
-        if (examTypeSelected == null) {
-            showMsg("No Next Exam Info");
-            return;
-        }
-
-        RetrofitClient.getApiService(context).getCoursePlan(examTypeSelected.getId()).enqueue(new ApiCallback<List<String>>(context,
-                new Callback<List<String>>() {
+    @Override
+    protected void load() {
+        showLoading();
+        RetrofitClient.getApiService(this).getCourses().enqueue(new Callback<ContentResponse<List<Course>>>() {
+            @Override
+            public void onResponse(Call<ContentResponse<List<Course>>> call, Response<ContentResponse<List<Course>>> response) {
+                ContentResponse<List<Course>> body = response.body();
+                if (body == null || body.IsError) {
+                    showMessage(errorText(body != null ? body.Msg : null), true);
+                    return;
+                }
+                if (body.Data == null || body.Data.isEmpty()) {
+                    showMessage(getString(R.string.lbl_no_courses), true);
+                    return;
+                }
+                List<RowAdapter.Row> rows = new ArrayList<>();
+                for (Course c : body.Data) {
+                    String points = c.PlanCount == 0 ? getString(R.string.lbl_course_plan_empty)
+                            : c.PlanCount == 1 ? getString(R.string.lbl_course_plan_one_point) : getString(R.string.lbl_course_plan_points, c.PlanCount);
+                    String subtitle = TextUtils.isEmpty(c.BatchLabel) ? points : c.BatchLabel + "  ·  " + points;
+                    rows.add(RowAdapter.Row.item(TextUtils.isEmpty(c.Title) ? c.Name : c.Title, subtitle, c.ImageUrl, c));
+                }
+                showList();
+                list.setAdapter(new RowAdapter(rows, new RowAdapter.OnRowClick() {
                     @Override
-                    public void onResponse(Call<List<String>> call, Response<List<String>> response) {
-                        List<String> coursePlanList = response.body();
-                        setDataToAdapter(coursePlanList);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<String>> call, Throwable t) {
+                    public void onRow(RowAdapter.Row row) {
+                        Course course = (Course) row.tag;
+                        Intent intent = new Intent(CoursePlanActivity.this, CoursePlanDetailActivity.class);
+                        intent.putExtra(CoursePlanDetailActivity.EXTRA_TYPE_ID, course.TypeId);
+                        intent.putExtra(CoursePlanDetailActivity.EXTRA_TITLE, row.title);
+                        startActivity(intent);
+                        AppUtils.startActivityAnimation(CoursePlanActivity.this);
                     }
                 }));
-    }
+            }
 
-    private void setDataToAdapter(List<String> bookList) {
-        if (bookList != null && !bookList.isEmpty()) {
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new CoursePlanRecyclerViewAdapter(context, bookList));
-        } else {
-            showMsg(getString(R.string.lbl_no_data));
-        }
+            @Override
+            public void onFailure(Call<ContentResponse<List<Course>>> call, Throwable t) {
+                showMessage(getString(R.string.err_network), true);
+            }
+        });
     }
-
 }

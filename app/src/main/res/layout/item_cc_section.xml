@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A small heading between groups of a list (the course of the subjects in Lectures) -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/section_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="8dp"
+    android:textAllCaps="true"
+    android:textColor="@color/cc_teal"
+    android:textSize="13sp"
+    android:textStyle="bold" />

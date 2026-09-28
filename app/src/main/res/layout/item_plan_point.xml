@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One point of a course plan: its number in a circle and the text -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/point_number"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_cc_number"
+        android:gravity="center"
+        android:textColor="@color/cc_teal"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/point_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:lineSpacingExtra="3dp"
+        android:textColor="@color/cc_ink"
+        android:textIsSelectable="true"
+        android:textSize="15sp" />
+</LinearLayout>

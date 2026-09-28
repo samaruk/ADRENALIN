@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Colours of the content screens (All Courses, Course Plan, Lectures, About Us, Notices) -->
+<resources>
+    <color name="cc_page">#F1F5F9</color>
+    <color name="cc_card">#FFFFFF</color>
+    <color name="cc_ink">#0F172A</color>
+    <color name="cc_body">#475569</color>
+    <color name="cc_muted">#94A3B8</color>
+    <color name="cc_line">#E2E8F0</color>
+    <color name="cc_chip">#F1F5F9</color>
+    <color name="cc_teal">#0F766E</color>
+    <color name="cc_teal_dark">#134E4A</color>
+    <color name="cc_teal_light">#CCFBF1</color>
+    <color name="cc_green">#16A34A</color>
+    <color name="cc_green_light">#DCFCE7</color>
+    <color name="cc_red">#DC2626</color>
+    <color name="cc_red_dark">#B91C1C</color>
+    <color name="cc_red_light">#FEE2E2</color>
+    <color name="cc_amber">#F59E0B</color>
+    <color name="cc_amber_light">#FEF3C7</color>
+    <color name="cc_amber_dark">#B45309</color>
+    <color name="cc_slate">#64748B</color>
+    <color name="cc_blue">#2563EB</color>
+    <color name="cc_blue_light">#DBEAFE</color>
+    <color name="cc_purple">#6D28D9</color>
+    <color name="cc_purple_light">#EDE9FE</color>
+    <color name="cc_scrim">#99000000</color>
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Content screens managed from the admin panel: All Courses, Course Plan, Lectures, About Us, Notices (2026-09) -->
+<resources>
+    <string name="lbl_all_courses">All Courses</string>
+    <string name="lbl_notices">Notices</string>
+    <string name="lbl_lectures">Lectures</string>
+    <string name="lbl_course_details">Course Details</string>
+    <string name="lbl_loading">Loading…</string>
+    <string name="lbl_retry">Tap to try again</string>
+    <string name="lbl_no_courses">No courses yet. Please check again later.</string>
+    <string name="lbl_no_plan">The course plan of this course is not published yet.</string>
+    <string name="lbl_no_subjects">No lectures have been published yet.</string>
+    <string name="lbl_no_lectures">No lectures in this subject yet.</string>
+    <string name="lbl_no_notices">No notices right now.</string>
+    <string name="lbl_course_plan_points">%1$d points</string>
+    <string name="lbl_course_plan_one_point">1 point</string>
+    <string name="lbl_course_plan_empty">No plan yet</string>
+    <string name="lbl_view_course_plan">View course plan</string>
+    <string name="lbl_course_plan_of">Course plan of %1$s</string>
+    <string name="lbl_plan_updated">Updated %1$s</string>
+    <string name="lbl_about_course">About this course</string>
+    <string name="lbl_about_lecture">About this lecture</string>
+    <string name="lbl_course_includes">This course includes</string>
+    <string name="lbl_duration_value">Duration: %1$s</string>
+    <string name="lbl_starts_value">Starts %1$s</string>
+    <string name="lbl_you_save">You save %1$s</string>
+    <string name="lbl_free">Free</string>
+    <string name="lbl_premium">Premium</string>
+    <string name="lbl_new">NEW</string>
+    <string name="lbl_pinned">Pinned</string>
+    <string name="lbl_lecture_no">Lecture %1$d</string>
+    <string name="lbl_lectures_count">%1$d lectures</string>
+    <string name="lbl_lecture_one">1 lecture</string>
+    <string name="lbl_watch_video">Watch video</string>
+    <string name="lbl_video">Video</string>
+    <string name="lbl_pdf_notes">PDF notes</string>
+    <string name="lbl_presentation">Presentation</string>
+    <string name="lbl_attachments">Attachments and resources</string>
+    <string name="lbl_learning_objectives">Learning objectives</string>
+    <string name="lbl_important_notes">Important notes</string>
+    <string name="lbl_lecture_content">Lecture</string>
+    <string name="lbl_premium_locked">Premium lecture</string>
+    <string name="lbl_open_file_failed">No app on this phone can open this file.</string>
+    <string name="lbl_about_mission">Our mission</string>
+    <string name="lbl_about_vision">Our vision</string>
+    <string name="lbl_about_why">Why choose us</string>
+    <string name="lbl_about_contact">Contact us</string>
+    <string name="lbl_about_follow">Find us online</string>
+    <string name="lbl_about_gallery">Gallery</string>
+    <string name="lbl_website">Website</string>
+    <string name="lbl_facebook">Facebook</string>
+    <string name="lbl_youtube">YouTube</string>
+    <string name="lbl_whatsapp">WhatsApp</string>
+    <string name="lbl_map">Map</string>
+    <string name="lbl_contact_phone">Phone</string>
+    <string name="lbl_contact_email">Email</string>
+    <string name="lbl_contact_address">Address</string>
+    <string name="lbl_contact_hours">Office hours</string>
+    <string name="lbl_new_notice">New notice</string>
+    <string name="lbl_new_notices">%1$d new notices</string>
+    <string name="lbl_notice_channel">Notices</string>
+    <string name="lbl_notice_channel_desc">New notices from Adrenalin</string>
+    <string name="lbl_open_notices">Notices</string>
+    <string name="lbl_photo_counter">%1$d / %2$d</string>
+
+    <!-- Forgot password, per the Otp.Delivery setting -->
+    <string name="lbl_forgot_help_email">Enter the email address of your account. We will send a 6-digit verification code to it.</string>
+    <string name="lbl_forgot_help_sms">Enter the mobile number of your account. We will send a 6-digit verification code to it by SMS.</string>
+    <string name="lbl_forgot_help_both">Enter the email address or mobile number of your account. We will send a 6-digit verification code to your email and mobile.</string>
+    <string name="hint_forgot_email">Email address</string>
+    <string name="hint_forgot_mobile">Mobile number</string>
+    <string name="hint_forgot_both">Email or mobile number</string>
+    <string name="err_forgot_email">Enter the email address of your account</string>
+    <string name="err_forgot_mobile">Enter the mobile number of your account (digits only)</string>
+</resources>

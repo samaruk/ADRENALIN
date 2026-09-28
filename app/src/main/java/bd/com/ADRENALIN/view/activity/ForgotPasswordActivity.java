@@ -3,6 +3,9 @@ package bd.com.ADRENALIN.view.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Patterns;
+import com.google.android.material.textfield.TextInputLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
@@ -18,6 +21,7 @@ import bd.com.ADRENALIN.R;
 import bd.com.ADRENALIN.network.ApiCallback;
 import bd.com.ADRENALIN.network.RetrofitClient;
 import bd.com.ADRENALIN.pojo.ResponseJson;
+import bd.com.ADRENALIN.pojo.content.PasswordResetConfig;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -25,8 +29,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Forgot password: step 1 sends a code to the account's email, step 2 sets a new
- * password with that code.
+ * Forgot password: step 1 sends a code to the account's email or mobile, step 2 sets a new
+ * password with that code. What the screen asks for follows the Otp.Delivery setting of the server:
+ * Email (email address only), Sms (mobile number only) or Both (either).
  */
 public class ForgotPasswordActivity extends BaseActivity {
 
@@ -52,6 +57,15 @@ public class ForgotPasswordActivity extends BaseActivity {
     AppCompatButton btnReset;
     @BindView(R.id.tvResend)
     TextView tvResend;
+    @BindView(R.id.tvForgotHelp)
+    TextView tvHelp;
+    @BindView(R.id.tilForgotAccount)
+    TextInputLayout tilAccount;
+
+    private static final String DELIVERY_EMAIL = "Email", DELIVERY_SMS = "Sms", DELIVERY_BOTH = "Both";
+    /** Last delivery the server sent, so the screen does not change while the setting loads. */
+    private static final String PREFS = "adrenalin_app", KEY_DELIVERY = "otp_delivery";
+    private String delivery = DELIVERY_EMAIL;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,8 +77,11 @@ public class ForgotPasswordActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.lbl_forgot_password));
 
+        applyDelivery(getSharedPreferences(PREFS, MODE_PRIVATE).getString(KEY_DELIVERY, DELIVERY_EMAIL));
+        loadDelivery();
+
         String prefill = getIntent() != null ? getIntent().getStringExtra("email") : null;
-        if (prefill != null) etEmail.setText(prefill);
+        if (prefill != null && !(DELIVERY_SMS.equals(delivery) && prefill.contains("@"))) etEmail.setText(prefill);
 
         btnSendCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +107,62 @@ public class ForgotPasswordActivity extends BaseActivity {
         return etEmail.getText().toString().trim();
     }
 
+    /** Text, hint and keyboard for the delivery set on the server. */
+    private void applyDelivery(String value) {
+        if (DELIVERY_SMS.equalsIgnoreCase(value)) {
+            delivery = DELIVERY_SMS;
+            tvHelp.setText(R.string.lbl_forgot_help_sms);
+            tilAccount.setHint(getString(R.string.hint_forgot_mobile));
+            etEmail.setInputType(InputType.TYPE_CLASS_PHONE);
+        } else if (DELIVERY_BOTH.equalsIgnoreCase(value)) {
+            delivery = DELIVERY_BOTH;
+            tvHelp.setText(R.string.lbl_forgot_help_both);
+            tilAccount.setHint(getString(R.string.hint_forgot_both));
+            etEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        } else {
+            delivery = DELIVERY_EMAIL;
+            tvHelp.setText(R.string.lbl_forgot_help_email);
+            tilAccount.setHint(getString(R.string.hint_forgot_email));
+            etEmail.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+        etEmail.setError(null);
+    }
+
+    private void loadDelivery() {
+        RetrofitClient.getApiService(context).getPasswordResetConfig().enqueue(new Callback<PasswordResetConfig>() {
+            @Override
+            public void onResponse(Call<PasswordResetConfig> call, Response<PasswordResetConfig> response) {
+                PasswordResetConfig config = response.body();
+                if (config == null || config.IsError || config.Delivery == null || isFinishing()) return;
+                getSharedPreferences(PREFS, MODE_PRIVATE).edit().putString(KEY_DELIVERY, config.Delivery).apply();
+                if (!config.Delivery.equalsIgnoreCase(delivery)) applyDelivery(config.Delivery);
+            }
+
+            @Override
+            public void onFailure(Call<PasswordResetConfig> call, Throwable t) {
+            }
+        });
+    }
+
+    /** Error message when the typed account does not fit the delivery, otherwise null. */
+    private String accountError(String value) {
+        if (value.isEmpty()) {
+            return getString(DELIVERY_SMS.equals(delivery) ? R.string.err_forgot_mobile
+                    : DELIVERY_EMAIL.equals(delivery) ? R.string.err_forgot_email : R.string.err_email_or_phone);
+        }
+        if (DELIVERY_EMAIL.equals(delivery) && !Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
+            return getString(R.string.err_forgot_email);
+        }
+        if (DELIVERY_SMS.equals(delivery) && !value.replaceAll("[\\s-]", "").matches("\\+?[0-9]{8,15}")) {
+            return getString(R.string.err_forgot_mobile);
+        }
+        return null;
+    }
+
     private void sendCode() {
-        if (emailOrPhone().isEmpty()) {
-            etEmail.setError(getString(R.string.err_email_or_phone));
+        String error = accountError(emailOrPhone());
+        if (error != null) {
+            etEmail.setError(error);
             return;
         }
         etEmail.setError(null);

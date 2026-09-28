@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home screen toolbar: the notice bell with the number of new notices -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_notices"
+        android:title="@string/lbl_notices"
+        app:actionLayout="@layout/action_notice_bell"
+        app:showAsAction="always" />
+</menu>

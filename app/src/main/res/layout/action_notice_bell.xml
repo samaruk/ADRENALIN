@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notice bell of the home toolbar; the badge shows how many notices are new -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bell_root"
+    android:layout_width="52dp"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:contentDescription="@string/lbl_notices"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/bell_icon"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_cc_bell" />
+
+    <TextView
+        android:id="@+id/bell_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="7dp"
+        android:background="@drawable/bg_cc_badge_count"
+        android:gravity="center"
+        android:minWidth="18dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+</FrameLayout>

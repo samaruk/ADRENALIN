@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- Android 13+: notifications for new notices -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
@@ -158,6 +160,57 @@
             <!--</intent-filter>-->
         </activity>
 
+
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.AllCoursesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.CourseDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.CoursePlanDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.LectureSubjectsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.SubjectLecturesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.LectureDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.NoticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.NoticeDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name="bd.com.ADRENALIN.view.activity.PhotoViewerActivity"
+            android:screenOrientation="unspecified"
+            android:theme="@style/AppTheme.Dark" />
+
+        <!-- New notices: background check (AlarmManager) and re-scheduling after a restart or an update -->
+        <receiver
+            android:name="bd.com.ADRENALIN.service.NoticeAlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name="bd.com.ADRENALIN.service.NotificationIntentService"

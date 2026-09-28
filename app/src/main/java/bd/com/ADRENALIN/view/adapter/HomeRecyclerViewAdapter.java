@@ -21,7 +21,10 @@ import bd.com.ADRENALIN.pojo.ResponseJson;
 import bd.com.ADRENALIN.util.AppConstants;
 import bd.com.ADRENALIN.util.AppUtils;
 import bd.com.ADRENALIN.util.LOG;
+import bd.com.ADRENALIN.view.activity.AboutUsActivity;
+import bd.com.ADRENALIN.view.activity.AllCoursesActivity;
 import bd.com.ADRENALIN.view.activity.AnswerSummaryListActivity;
+import bd.com.ADRENALIN.view.activity.LectureSubjectsActivity;
 import bd.com.ADRENALIN.view.activity.AppReviewActivity;
 import bd.com.ADRENALIN.view.activity.ArchiveActivity;
 import bd.com.ADRENALIN.view.activity.BaseActivity;
@@ -117,14 +120,14 @@ public class HomeRecyclerViewAdapter extends
                         intent = new Intent(context, AnswerSummaryListActivity.class);
                     } else if (section.equals(context.getString(R.string.lbl_archive))) {
                         intent = new Intent(context, ArchiveActivity.class);
-                    } else if (section.equals(context.getString(R.string.lbl_book_list))) {
-                        intent = new Intent(context, BookListActivity.class);
+                    } else if (section.equals(context.getString(R.string.lbl_all_courses))) {
+                        intent = new Intent(context, AllCoursesActivity.class);
                     } else if (section.equals(context.getString(R.string.lbl_course_plan))) {
                         intent = new Intent(context, CoursePlanActivity.class);
-                    } else if (section.equals(context.getString(R.string.lbl_app_review))) {
-                        intent = new Intent(context, AppReviewActivity.class);
+                    } else if (section.equals(context.getString(R.string.lbl_about_us))) {
+                        intent = new Intent(context, AboutUsActivity.class);
                     } else if (section.equals(context.getString(R.string.lbl_lecture))) {
-                        intent = new Intent(context, LectureActivity.class);
+                        intent = new Intent(context, LectureSubjectsActivity.class);
                     }
 
                     if (intent != null) {

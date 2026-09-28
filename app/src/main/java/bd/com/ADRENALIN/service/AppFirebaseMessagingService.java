@@ -44,10 +44,13 @@ public class AppFirebaseMessagingService extends com.google.firebase.messaging.F
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(AppConstants.NotificatioEvent.EVENT_ID, Integer.parseInt(messageBody.get("Id")));
         Log.e("SamarukWebSocket", "EVENT_ID Is "+Integer.parseInt(messageBody.get("Id")));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        // Android 12+ requires an explicit mutability flag, and Android 8+ a channel
+        int immutable = android.os.Build.VERSION.SDK_INT >= 23 ? PendingIntent.FLAG_IMMUTABLE : 0;
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | immutable);
+        bd.com.ADRENALIN.util.NoticeChecker.ensureChannel(this);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, bd.com.ADRENALIN.util.NoticeChecker.CHANNEL)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(messageBody.get("Title"))
                 .setContentText(messageBody.get("Content"))
