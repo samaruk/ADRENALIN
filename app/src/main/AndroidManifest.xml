@@ -90,7 +90,8 @@
         <activity
             android:name="bd.com.ADRENALIN.view.activity.RoutineActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.Dark"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="bd.com.ADRENALIN.view.activity.ExamActivity"
             android:screenOrientation="portrait"
@@ -126,7 +127,8 @@
         <activity
             android:name="bd.com.ADRENALIN.view.activity.ArchiveActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
+            android:theme="@style/AppTheme.Dark"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="bd.com.ADRENALIN.view.activity.CoursePlanActivity"
             android:screenOrientation="portrait"

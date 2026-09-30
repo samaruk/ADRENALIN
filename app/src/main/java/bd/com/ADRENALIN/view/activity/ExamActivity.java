@@ -81,6 +81,8 @@ public class ExamActivity extends BaseActivity {
     private String startAt;
     private boolean isExamRunning;
     private boolean isReExam;
+    /** Started from the Archive (result already published), so the result is shown right after submitting. */
+    private boolean fromArchive;
     private boolean isSubmitting;
     private boolean isFinished;
     private Exam examInfo;
@@ -144,6 +146,7 @@ public class ExamActivity extends BaseActivity {
         if (intent != null) {
             String examString = intent.getStringExtra(AppConstants.ExamConstants.INTENT_CODE);
             isReExam = intent.getBooleanExtra(AppConstants.ExamConstants.INTENT_IS_REEXAM, false);
+            fromArchive = intent.getBooleanExtra(AppConstants.ExamConstants.INTENT_FROM_ARCHIVE, false);
             if (examString != null && !examString.isEmpty()) {
                 examInfo = new Gson().fromJson(examString, Exam.class);
                 Log.e(TAG, examString);
@@ -362,14 +365,20 @@ public class ExamActivity extends BaseActivity {
                     isFinished = true;
                     stopTimer();
                     clearDraft();
-                    if (!isReExam) getPrefManager().setNextExamInfo(null);
+                    if (!isReExam) {
+                        // Only forget the Home "next exam" when this was that exam (not a first attempt from the Archive)
+                        Exam next = getPrefManager().getNexExamInfo();
+                        if (next == null || next.getId() == examId) getPrefManager().setNextExamInfo(null);
+                    }
+                    final boolean storedAsReExam = isReExam || apiGenericResponse.isStoredAsReExam();
                     new AlertDialog.Builder(context, R.style.AppTheme_Dark_Dialog)
                             .setMessage(apiGenericResponse.getMsg())
                             .setPositiveButton(getString(R.string.btn_ok), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-                                    if (isReExam) openSummary();
+                                    // The result of an Archive exam is already published: show it now
+                                    if (storedAsReExam || fromArchive) openSummary(storedAsReExam);
                                     finish();
                                 }
                             })
@@ -402,10 +411,11 @@ public class ExamActivity extends BaseActivity {
                 .show();
     }
 
-    private void openSummary() {
+    /** Result of the attempt just submitted: the latest re-exam, or the main (first) attempt. */
+    private void openSummary(boolean reExam) {
         Intent intent = new Intent(context, AnswerSummaryActivity.class);
         intent.putExtra(AppConstants.ExamConstants.INTENT_EXAM_ID, examId);
-        intent.putExtra(AppConstants.ExamConstants.INTENT_IS_REEXAM, true);
+        intent.putExtra(AppConstants.ExamConstants.INTENT_IS_REEXAM, reExam);
         startActivity(intent);
         AppUtils.startActivityAnimation(context);
     }

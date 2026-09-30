@@ -32,8 +32,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Result of one exam with a tab per attempt: "Exam" (the main exam, with position and
- * merit list) and "Reexam 1..n" (re-exams, which are not part of the competition).
+ * Result of one exam with its attempts listed one per line: "Exam" (the first attempt, with position and
+ * merit list) and "Re-exam 1..n" (re-exams, which are not part of the competition).
  *
  * Created by mahfuz on 7/9/17.
  */
@@ -146,42 +146,63 @@ public class AnswerSummaryActivity extends BaseActivity {
                 }));
     }
 
+    /** One full-width row per attempt, one below another: label on the left, marks on the right. */
     private void buildTabs() {
         llAttemptTabs.removeAllViews();
         boolean show = attempts.size() > 1;
         tvAttemptsLabel.setVisibility(show ? View.VISIBLE : View.GONE);
         hsAttemptTabs.setVisibility(show ? View.VISIBLE : View.GONE);
         if (!show) return;
-        int padding = (int) (12 * getResources().getDisplayMetrics().density);
-        int margin = (int) (6 * getResources().getDisplayMetrics().density);
+        float density = getResources().getDisplayMetrics().density;
+        int padH = (int) (14 * density), padV = (int) (11 * density), gap = (int) (8 * density);
         for (int i = 0; i < attempts.size(); i++) {
             final int index = i;
-            TextView tab = new TextView(context);
-            tab.setText(attempts.get(i).getLabel());
-            tab.setPadding(padding, padding / 2, padding, padding / 2);
-            tab.setTextSize(15);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(0, 0, margin, 0);
-            tab.setLayoutParams(params);
-            tab.setOnClickListener(new View.OnClickListener() {
+            ExamAttempt attempt = attempts.get(i);
+            LinearLayout row = new LinearLayout(context);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            row.setBaselineAligned(false);
+            row.setPadding(padH, padV, padH, padV);
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if (i > 0) rowParams.topMargin = gap;
+            row.setLayoutParams(rowParams);
+
+            TextView label = new TextView(context);
+            label.setText(attempt.isReExam() ? attempt.getLabel() : attempt.getLabel() + " (" + getString(R.string.lbl_first_attempt) + ")");
+            label.setTextSize(16);
+            row.addView(label, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+
+            TextView marks = new TextView(context);
+            marks.setText(getString(R.string.lbl_attempt_marks, formatMarks(attempt.getMarks())));
+            marks.setTextSize(14);
+            row.addView(marks, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     select(index);
                 }
             });
-            llAttemptTabs.addView(tab);
+            llAttemptTabs.addView(row);
         }
+    }
+
+    private static String formatMarks(double marks) {
+        return marks == Math.rint(marks) ? String.valueOf((long) marks) : String.valueOf(Math.round(marks * 100) / 100.0);
     }
 
     private void select(int index) {
         if (index < 0 || index >= attempts.size()) return;
         selectedIndex = index;
         for (int i = 0; i < llAttemptTabs.getChildCount(); i++) {
-            TextView tab = (TextView) llAttemptTabs.getChildAt(i);
+            LinearLayout row = (LinearLayout) llAttemptTabs.getChildAt(i);
             boolean active = i == index;
-            tab.setBackgroundColor(ContextCompat.getColor(context, active ? R.color.primary_dark : R.color.gray_light));
-            tab.setTextColor(ContextCompat.getColor(context, active ? R.color.white : R.color.text_color_primary));
-            tab.setTypeface(null, active ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+            row.setBackgroundResource(active ? R.drawable.bg_attempt_row_selected : R.drawable.bg_attempt_row);
+            for (int c = 0; c < row.getChildCount(); c++) {
+                TextView text = (TextView) row.getChildAt(c);
+                text.setTextColor(ContextCompat.getColor(context, active ? R.color.white : R.color.text_color_primary));
+                text.setTypeface(null, active && c == 0 ? android.graphics.Typeface.BOLD : android.graphics.Typeface.NORMAL);
+            }
         }
         showAttempt(attempts.get(index));
     }
@@ -205,8 +226,9 @@ public class AnswerSummaryActivity extends BaseActivity {
         if (isReExam && attemptNo > 0) title += " (" + getString(R.string.lbl_reexam) + " " + attemptNo + ")";
         tvAnswerSummaryOf.setText(title);
         tvMarks.setText(marks + "");
-        tvMaxMark.setText(maxMarks + "");
-        tvMinMark.setText(minMarks + "");
+        // With no candidates the exam still holds its starting values (-100 / 100): show a dash instead
+        tvMaxMark.setText(totalAns > 0 ? maxMarks + "" : getString(R.string.lbl_not_available));
+        tvMinMark.setText(totalAns > 0 ? minMarks + "" : getString(R.string.lbl_not_available));
         tvPosition.setText(position + "");
         tvCorrectAnswer.setText(correct + "");
         tvWrongAnswer.setText(wrong + "");

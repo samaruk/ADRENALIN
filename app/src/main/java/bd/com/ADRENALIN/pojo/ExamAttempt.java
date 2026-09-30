@@ -57,8 +57,8 @@ public class ExamAttempt {
     public double getMinMarks() { return minMarks; }
     public String getStartAt() { return startAt; }
 
-    /** Tab label: "Exam" for the main attempt, "Reexam 1", "Reexam 2", ... for re-exams. */
+    /** Label: "Exam" for the main (first) attempt, "Re-exam 1", "Re-exam 2", ... for re-exams. */
     public String getLabel() {
-        return isReExam() ? "Reexam " + attemptNo : "Exam";
+        return isReExam() ? "Re-exam " + attemptNo : "Exam";
     }
 }

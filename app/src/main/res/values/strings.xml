@@ -166,12 +166,12 @@
     <string name="err_network">No connection. Please check your internet and try again.</string>
 
     <!-- Exam sessions, resume and re-exam (2026-09) -->
-    <string name="lbl_reexam">Reexam</string>
-    <string name="btn_reexam">Reexam</string>
+    <string name="lbl_reexam">Re-exam</string>
+    <string name="btn_reexam">Re-exam</string>
     <string name="btn_start">Start</string>
     <string name="btn_continue">Continue</string>
     <string name="btn_continue_later">Continue later</string>
-    <string name="lbl_reexam_count">You have taken this re-exam %1$d time(s).</string>
+    <string name="lbl_reexam_count">Re-exams taken: %1$d. Re-exams are practice only and do not change the merit list or your position.</string>
     <string name="lbl_reexam_confirmation">Start a re-exam of %1$d minutes? A re-exam is for practice only: it is not counted in the competition or the merit position.</string>
     <string name="lbl_reexam_resume">You have an unfinished re-exam of this exam. Continue where you left off?</string>
     <string name="lbl_exam_connecting">Connecting…</string>

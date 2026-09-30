@@ -295,6 +295,11 @@ public class Archive implements Parcelable {
     private int hasAnswer;
     @SerializedName("ReExamCount")
     private int reExamCount;
+    @SerializedName("ViewedAnswers")
+    private int viewedAnswers;
+    /** Null from servers older than 2026-09-30. */
+    @SerializedName("CanPerform")
+    private Integer canPerform;
 
     /** True when the student submitted the main exam. */
     public boolean hasAnswer() {
@@ -303,5 +308,20 @@ public class Archive implements Parcelable {
 
     public int getReExamCount() {
         return reExamCount;
+    }
+
+    /**
+     * True when the next attempt is the student's first ("Perform Exam"): it counts in the merit list and the
+     * position even after the exam time. False: every further attempt is a re-exam (practice only).
+     */
+    public boolean canPerform() {
+        if (canPerform != null) return canPerform == 1;
+        return !hasAnswer() && reExamCount == 0 && viewedAnswers == 0;
+    }
+
+    /** The student looked at the answers or the discussion, so a later attempt is a re-exam. */
+    public void markViewedAnswers() {
+        viewedAnswers = 1;
+        canPerform = 0;
     }
 }

@@ -9,12 +9,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import bd.com.ADRENALIN.network.ApiCallback;
 import bd.com.ADRENALIN.network.RetrofitClient;
 import bd.com.ADRENALIN.pojo.Archive;
 import bd.com.ADRENALIN.pojo.ExamType;
+import bd.com.ADRENALIN.util.AppUtils;
+import bd.com.ADRENALIN.util.ExamSearch;
 import bd.com.ADRENALIN.util.LOG;
 import bd.com.ADRENALIN.view.adapter.ArchiveListRecyclerViewAdapter;
 import bd.com.ADRENALIN.R;
@@ -26,6 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ * Exams whose result is published, latest first, with a search field. After an attempt the list is
+ * loaded again, so the option switches from "Perform Exam" to "Re-exam".
+ *
  * Created by mahfuz on 7/12/17.
  */
 
@@ -39,6 +46,10 @@ public class ArchiveActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    private final List<Archive> allArchives = new ArrayList<>();
+    private ArchiveListRecyclerViewAdapter adapter;
+    private ExamSearch search;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,16 +61,33 @@ public class ArchiveActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ArchiveActivity.this.setTitle(getString(R.string.lbl_archive));
 
-        getArchivesFromApi();
+        adapter = new ArchiveListRecyclerViewAdapter(context, new ArrayList<Archive>(), getPrefManager().getUserInfo(), true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
+        search = new ExamSearch(this, new ExamSearch.Listener() {
+            @Override
+            public void onQuery(String query) {
+                applyFilter();
+            }
+        });
+
+        getArchivesFromApi(true);
     }
 
-    private void getArchivesFromApi() {
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Back from an attempt, the questions or the discussion: the next option may have changed.
+        getArchivesFromApi(false);
+    }
+
+    private void getArchivesFromApi(boolean showProgress) {
         ExamType examType = getPrefManager().getExamTypeSelected();
         User user = getPrefManager().getUserInfo();
 
         if (user == null || examType == null) return;
         LOG.e("getArchives", new Gson().toJson(user));
-        RetrofitClient.getApiService(context).getArchives(examType.getId(), user.getId()).enqueue(new ApiCallback<List<Archive>>(context,
+        RetrofitClient.getApiService(context).getArchives(examType.getId(), user.getId()).enqueue(new ApiCallback<List<Archive>>(context, showProgress,
                 new Callback<List<Archive>>() {
                     @Override
                     public void onResponse(Call<List<Archive>> call, Response<List<Archive>> response) {
@@ -77,13 +105,25 @@ public class ArchiveActivity extends BaseActivity {
     }
 
     private void setDataToAdapter(List<Archive> archiveList) {
-        User user = getPrefManager().getUserInfo();
         if (archiveList != null && !archiveList.isEmpty()) {
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new ArchiveListRecyclerViewAdapter(context, archiveList,user, true));
+            allArchives.clear();
+            allArchives.addAll(archiveList);
+            applyFilter();
         } else {
             showMsg(getString(R.string.lbl_no_data));
         }
+    }
+
+    /** Shows the exams that match the search field (all of them when it is empty). */
+    private void applyFilter() {
+        String query = search.query();
+        List<Archive> shown = new ArrayList<>();
+        for (Archive a : allArchives) {
+            Date date = AppUtils.getDateFromString(a.getStartAt());
+            String dateText = date == null ? "" : AppUtils.getDateStringFromDate(date);
+            if (ExamSearch.matches(query, a.getName(), a.getContent(), a.getStartAt(), dateText)) shown.add(a);
+        }
+        adapter.setItems(shown);
+        search.showResult(shown.size(), allArchives.size());
     }
 }

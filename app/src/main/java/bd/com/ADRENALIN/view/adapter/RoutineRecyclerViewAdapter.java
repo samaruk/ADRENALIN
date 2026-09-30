@@ -56,6 +56,12 @@ public class RoutineRecyclerViewAdapter extends
         this.routineArrayList = items;
     }
 
+    /** Replaces the shown exams (search results). */
+    public void setItems(List<Routine> items) {
+        this.routineArrayList = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public RoutineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new RoutineViewHolder(

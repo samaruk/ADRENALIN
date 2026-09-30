@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Archive and Routine search, first attempt ("Perform Exam") and re-exams (2026-09-30) -->
+<resources>
+    <string name="btn_perform_exam">Perform Exam</string>
+    <string name="lbl_perform_info">This will be your first attempt. Your marks count in the merit list and your position.</string>
+    <string name="lbl_perform_confirmation">Start the exam now? You have %1$d minutes. This is your first attempt: your marks will count in the merit list and your position.</string>
+    <string name="lbl_perform_resume">You have an unfinished attempt of this exam. Continue where you left off?</string>
+    <string name="lbl_viewed_info">You have seen the answers or the discussion of this exam, so your attempts are re-exams: practice only, not counted in the merit list or your position.</string>
+    <string name="lbl_answered_info">You have taken this exam. Only your first attempt counts in the merit list and your position; re-exams are practice only.</string>
+    <string name="lbl_view_before_perform">You have not taken this exam yet. If you look at the questions with answers or the discussion first, you can still practise the exam, but only as a re-exam: it will not count in the merit list or your position. Continue?</string>
+    <string name="hint_search_exams">Search by exam name or date</string>
+    <string name="lbl_no_exam_match">No exams match “%1$s”.</string>
+    <string name="lbl_search_clear">Clear search</string>
+    <string name="lbl_exam_count">%1$d exams</string>
+    <string name="lbl_exam_count_filtered">%1$d of %2$d exams</string>
+    <string name="lbl_not_available">–</string>
+    <string name="lbl_first_attempt">First attempt</string>
+    <string name="lbl_attempt_marks">Marks %1$s</string>
+</resources>

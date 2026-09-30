@@ -21,6 +21,13 @@ public class ApiGenericResponse implements Parcelable {
     @SerializedName("Msg")
     @Expose
     private String msg;
+    /** True when the server stored the submission as a re-exam (a late first attempt after seeing the answers). */
+    @SerializedName("IsReExam")
+    private boolean storedAsReExam;
+
+    public boolean isStoredAsReExam() {
+        return storedAsReExam;
+    }
 
     public final static Parcelable.Creator<ApiGenericResponse> CREATOR = new Creator<ApiGenericResponse>() {
         @SuppressWarnings({"unchecked"})
