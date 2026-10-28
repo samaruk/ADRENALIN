@@ -195,6 +195,11 @@
     <string name="hint_digits_only">Digits only</string>
     <string name="hint_address">House, road, area, district</string>
     <string name="err_email_required">Email is required</string>
+    <string name="lbl_email_or_mobile_email">Email</string>
+    <string name="lbl_email_or_mobile_mobile">Mobile number</string>
+    <string name="lbl_email_or_mobile_note">* Enter your email or your mobile number. One of them is enough; you can sign in with it.</string>
+    <string name="err_email_or_mobile_required">Enter your email or your mobile number (at least one)</string>
+    <string name="err_phone_sign_in">Enter your mobile number: your account has no email, so you sign in with it</string>
     <string name="err_name_required">Enter your name</string>
     <string name="lbl_show_password">Show or hide the password</string>
 

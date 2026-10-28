@@ -583,7 +583,9 @@ public class MainActivity extends BaseActivity {
         tvSelectedExamType = navHeader.findViewById(selectedExamType);
 
         tvName.setText(user.getName());
-        tvEmail.setText(user.getEmail());
+        // An account opened with a mobile number only has no email: show the number instead
+        String email = user.getEmail();
+        tvEmail.setText(email != null && !email.trim().isEmpty() ? email : user.getPhone());
 
         tvSelectedExamType.setVisibility(View.GONE);
     }

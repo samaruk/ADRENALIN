@@ -169,15 +169,17 @@ public class UserProfileFragment extends BaseFragment {
             etName.setError(null);
         }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        // The email is read-only here, and an account opened with a mobile number only has none
+        if (!email.isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             etEmail.setError(getString(R.string.err_email));
             valid = false;
         } else {
             etEmail.setError(null);
         }
 
-        if (phone.isEmpty() || phone.length() != 11) {
-            etPhone.setError(getString(R.string.err_phone));
+        // The mobile number may be left empty only when the account has an email (as on the sign-up screen)
+        if (phone.isEmpty() ? email.isEmpty() : !phone.matches("[0-9]{8,15}")) {
+            etPhone.setError(getString(phone.isEmpty() ? R.string.err_phone_sign_in : R.string.err_phone_digits));
             valid = false;
         } else {
             etPhone.setError(null);

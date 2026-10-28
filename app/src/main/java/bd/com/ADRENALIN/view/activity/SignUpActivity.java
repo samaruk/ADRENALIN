@@ -136,8 +136,9 @@ public class SignUpActivity extends BaseActivity {
     }
 
     /**
-     * Checks the form. Name, email, mobile number and password are required; address and
-     * remarks are optional. The first problem is also shown above the form and focused.
+     * Checks the form. Name and password are required, and the email or the mobile number (at least one
+     * of them; each one given must be valid); address and remarks are optional. The first problem is also
+     * shown above the form and focused.
      */
     private boolean validate() {
         tvError.setVisibility(View.GONE);
@@ -154,14 +155,21 @@ public class SignUpActivity extends BaseActivity {
         etName.setError(error);
         if (error != null && firstError == null) { firstError = error; firstField = etName; }
 
-        error = email.isEmpty() ? getString(R.string.err_email_required)
-                : !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ? getString(R.string.err_email) : null;
-        etEmail.setError(error);
-        if (error != null && firstError == null) { firstError = error; firstField = etEmail; }
+        if (email.isEmpty() && phone.isEmpty()) {
+            // Either one is enough, but one of them is needed
+            error = getString(R.string.err_email_or_mobile_required);
+            etEmail.setError(error);
+            etPhone.setError(error);
+            if (firstError == null) { firstError = error; firstField = etEmail; }
+        } else {
+            error = email.isEmpty() || android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ? null : getString(R.string.err_email);
+            etEmail.setError(error);
+            if (error != null && firstError == null) { firstError = error; firstField = etEmail; }
 
-        error = phone.matches("[0-9]{8,15}") ? null : getString(R.string.err_phone_digits);
-        etPhone.setError(error);
-        if (error != null && firstError == null) { firstError = error; firstField = etPhone; }
+            error = phone.isEmpty() || phone.matches("[0-9]{8,15}") ? null : getString(R.string.err_phone_digits);
+            etPhone.setError(error);
+            if (error != null && firstError == null) { firstError = error; firstField = etPhone; }
+        }
 
         // Password errors carry no icon so the show/hide eye stays visible
         error = password.length() < 6 ? getString(R.string.err_password) : null;

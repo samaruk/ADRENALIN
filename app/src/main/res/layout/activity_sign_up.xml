@@ -78,7 +78,7 @@
 
                     <TextView
                         style="@style/FormLabel"
-                        android:text="@string/lbl_email_required" />
+                        android:text="@string/lbl_email_or_mobile_email" />
 
                     <EditText
                         android:id="@+id/input_email"
@@ -90,7 +90,7 @@
 
                     <TextView
                         style="@style/FormLabel"
-                        android:text="@string/lbl_mobile_required" />
+                        android:text="@string/lbl_email_or_mobile_mobile" />
 
                     <EditText
                         android:id="@+id/input_phone"
@@ -101,6 +101,16 @@
                         android:maxLength="15" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Either one is enough -->
+            <TextView
+                android:id="@+id/tvContactNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/lbl_email_or_mobile_note"
+                android:textColor="@color/text_color_secondary"
+                android:textSize="13sp" />
 
             <!-- Address (full width, optional) -->
             <TextView
