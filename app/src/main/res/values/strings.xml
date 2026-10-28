@@ -139,11 +139,6 @@
     <string name="hint_code">Verification code</string>
     <string name="hint_new_password">New password</string>
     <string name="lbl_registration">Registration</string>
-    <string name="lbl_candidate_type">Candidate Type</string>
-    <string name="lbl_medical_college">Medical College</string>
-    <string name="lbl_faculty">Faculty</string>
-    <string name="lbl_subject">Subject</string>
-    <string name="lbl_batch_name">Batch Name</string>
     <string name="lbl_select_candidate_type">Select candidate type</string>
     <string name="lbl_select_medical_college">Select medical college</string>
     <string name="lbl_select_faculty">Select faculty</string>
@@ -189,7 +184,6 @@
     <string name="lbl_email_required">Email *</string>
     <string name="lbl_mobile_required">Mobile number *</string>
     <string name="lbl_address_optional">Address (optional)</string>
-    <string name="lbl_remarks_optional">Remarks (optional)</string>
     <string name="lbl_password_required">Password *</string>
     <string name="lbl_password_re_required">Confirm password *</string>
     <string name="hint_digits_only">Digits only</string>

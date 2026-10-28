@@ -8,13 +8,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import bd.com.ADRENALIN.R;
 import bd.com.ADRENALIN.network.ApiCallback;
@@ -32,8 +27,9 @@ import retrofit2.Response;
  * Native sign-up screen. Posts to the same endpoint as the web registration page
  * (UserArea/AppUser/AddAppUser), so accounts are created exactly as before.
  *
- * Fields are laid out two per row (Name and Address use the full width). The dropdowns list
- * only the real values from the server, and the first value is selected by default.
+ * Fields are laid out two per row (Name and Address use the full width). The candidate type,
+ * medical college, faculty, subject, batch and remarks are not asked here: the admin sets them
+ * on the App Users page.
  *
  * Created by mahfuz on 7/5/17.
  */
@@ -56,18 +52,6 @@ public class SignUpActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.input_password_re)
     EditText etPasswordRe;
-    @BindView(R.id.input_remarks)
-    EditText etRemarks;
-    @BindView(R.id.spCategory)
-    Spinner spCategory;
-    @BindView(R.id.spMedicalCollege)
-    Spinner spMedicalCollege;
-    @BindView(R.id.spFaculty)
-    Spinner spFaculty;
-    @BindView(R.id.spDepartment)
-    Spinner spDepartment;
-    @BindView(R.id.spBatch)
-    Spinner spBatch;
     @BindView(R.id.btnRegister)
     AppCompatButton btnRegister;
     @BindView(R.id.tvSignUpError)
@@ -95,50 +79,29 @@ public class SignUpActivity extends BaseActivity {
         loadOptions();
     }
 
-    /** Only the available values are listed (no "Select ..." entry); the first one is selected. */
-    private void bindSpinner(Spinner spinner, List<RegistrationOptions.Item> items) {
-        List<RegistrationOptions.Item> list = new ArrayList<>();
-        if (items != null) list.addAll(items);
-        ArrayAdapter<RegistrationOptions.Item> adapter = new ArrayAdapter<>(context, R.layout.spinner_item, list);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        if (!list.isEmpty()) spinner.setSelection(0);
-    }
-
-    private long selectedId(Spinner spinner) {
-        Object item = spinner.getSelectedItem();
-        return item instanceof RegistrationOptions.Item ? ((RegistrationOptions.Item) item).getId() : 0;
-    }
-
+    /**
+     * Loads the message shown after signing up (it carries the office phone number). The lists in the
+     * reply are only for older app versions. Without it the form still works and a plain message is shown.
+     */
     private void loadOptions() {
         RetrofitClient.getApiService(context).getRegistrationOptions().enqueue(new ApiCallback<RegistrationOptions>(context,
                 new Callback<RegistrationOptions>() {
                     @Override
                     public void onResponse(Call<RegistrationOptions> call, Response<RegistrationOptions> response) {
                         RegistrationOptions result = response.body();
-                        if (result == null || result.isError()) {
-                            showMsg(result != null && result.getMsg() != null ? result.getMsg() : getString(R.string.err_server));
-                            return;
-                        }
-                        options = result;
-                        bindSpinner(spCategory, result.getCategories());
-                        bindSpinner(spMedicalCollege, result.getMedicalColleges());
-                        bindSpinner(spFaculty, result.getFaculties());
-                        bindSpinner(spDepartment, result.getDepartments());
-                        bindSpinner(spBatch, result.getBatches());
+                        if (result != null && !result.isError()) options = result;
                     }
 
                     @Override
                     public void onFailure(Call<RegistrationOptions> call, Throwable t) {
-                        showMsg(getString(R.string.err_server));
                     }
                 }));
     }
 
     /**
      * Checks the form. Name and password are required, and the email or the mobile number (at least one
-     * of them; each one given must be valid); address and remarks are optional. The first problem is also
-     * shown above the form and focused.
+     * of them; each one given must be valid); the address is optional. The first problem is also shown
+     * above the form and focused.
      */
     private boolean validate() {
         tvError.setVisibility(View.GONE);
@@ -198,12 +161,6 @@ public class SignUpActivity extends BaseActivity {
         request.phone = etPhone.getText().toString().trim();
         request.address = etAddress.getText().toString().trim();
         request.password = etPassword.getText().toString();
-        request.remarks = etRemarks.getText().toString().trim();
-        request.categoryId = selectedId(spCategory);
-        request.medicalCollageId = selectedId(spMedicalCollege);
-        request.facultyId = selectedId(spFaculty);
-        request.departmentId = selectedId(spDepartment);
-        request.studentBatchId = selectedId(spBatch);
 
         RetrofitClient.getApiService(context).registerAppUser(request).enqueue(new ApiCallback<ResponseJson>(context,
                 new Callback<ResponseJson>() {

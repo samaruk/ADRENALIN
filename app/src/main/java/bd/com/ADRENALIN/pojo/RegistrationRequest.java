@@ -2,7 +2,10 @@ package bd.com.ADRENALIN.pojo;
 
 import com.google.gson.annotations.SerializedName;
 
-/** Body of UserArea/AppUser/AddAppUser, the same fields the web registration page sends. */
+/**
+ * Body of UserArea/AppUser/AddAppUser, the same fields the web registration page sends. The candidate type,
+ * medical college, faculty, subject, batch and remarks are set by the admin (App Users), not at sign-up.
+ */
 public class RegistrationRequest {
     @SerializedName("Name")
     public String name;
@@ -12,19 +15,7 @@ public class RegistrationRequest {
     public String phone;
     @SerializedName("Password")
     public String password;
-    @SerializedName("Remarks")
-    public String remarks;
     /** Optional postal address. */
     @SerializedName("Address")
     public String address;
-    @SerializedName("CategoryId")
-    public long categoryId;
-    @SerializedName("MedicalCollageId")
-    public long medicalCollageId;
-    @SerializedName("FacultyId")
-    public long facultyId;
-    @SerializedName("DepartmentId")
-    public long departmentId;
-    @SerializedName("StudentBatchId")
-    public long studentBatchId;
 }
